@@ -21,7 +21,6 @@ public class Main extends Muxer {
         addCommand(new SVGExport());
         addCommand(new StatsExport());
         addCommand(new Runner());
-        addCommand(new HelloCommand());
         addCommand(new HDLExport());
     }
 
