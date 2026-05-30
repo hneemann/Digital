@@ -26,7 +26,7 @@ public class GraphicSVGLaTeXTest extends TestCase {
         assertEquals("$Z_0$", gs.format("$Z_0$", Style.NORMAL));
         assertEquals("$Z_{in}$", gs.format("$Z_{in}$", Style.NORMAL));
         assertEquals("$Z_0$", gs.format("Z_0", Style.NORMAL));
-        assertEquals("\\&amp;", gs.format("&", Style.NORMAL));
+        assertEquals("&amp;", gs.format("&", Style.NORMAL));
         assertEquals("$\\geq\\!\\!{}$1", gs.format("\u22651", Style.NORMAL));
         assertEquals("$\\geq\\!\\!{}1$", gs.format("$\u22651$", Style.NORMAL));
         assertEquals("$\\overline{\\mbox{Q}}$", gs.format("~Q", Style.NORMAL));
@@ -71,7 +71,7 @@ public class GraphicSVGLaTeXTest extends TestCase {
         assertTrue(baos.toString().contains(">&amp;<"));
 
         baos = createSVG(new ElementAttributes().set(SVGSettings.LATEX, true));
-        assertTrue(baos.toString().contains(">\\&amp;<"));
+        assertTrue(baos.toString().contains(">&amp;<"));
     }
 
 }
