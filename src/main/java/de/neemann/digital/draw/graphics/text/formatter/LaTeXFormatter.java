@@ -110,9 +110,9 @@ public final class LaTeXFormatter {
                     return "\\textgreater{}";
             case '&':
                 if (inMath)
-                    return "\\ \\&\\ ";
+                    return "\\ &\\ ";
                 else
-                    return "\\&";
+                    return "&";
             case '|':
                 if (inMath)
                     return "\\ |\\ ";
