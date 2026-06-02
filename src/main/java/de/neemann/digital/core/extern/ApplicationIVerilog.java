@@ -29,6 +29,7 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
     private String iverilogFolder;
     private String iverilog;
     private String vvp;
+    private String verilogLibPath;
 
     /**
      * Initialize a new instance
@@ -39,6 +40,21 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
         this.attr = attr;
         iverilogFolder = "";
         hasIverilog = findIVerilog();
+        verilogLibPath = getVerilogLibPath();
+    }
+
+    /**
+     * verilog code lib path, find includes and depends code
+     * support config with env vars
+     * @return lib path
+     */
+    private String getVerilogLibPath() {
+        String libPath = Settings.getInstance().get(Keys.SETTINGS_VERILOG_LIB_DIR).getAbsolutePath();
+        if (libPath == null || libPath.equals("")) {
+            return "";
+        }
+        libPath = "-y"+ApplicationIVerilog.replaceEnvVars(libPath);
+        return libPath;
     }
 
     @Override
@@ -60,6 +76,7 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
                     .add("-o")
                     .add(testOutputName)
                     .add(attr, Keys.IVERILOG_OPTIONS)
+                    .addString(this.verilogLibPath)
                     .add(file.getName())
                     .getArray()
             );
@@ -106,6 +123,7 @@ public class ApplicationIVerilog extends ApplicationVerilogStdIO {
                     .add("-o")
                     .add(testOutputName)
                     .add(attr, Keys.IVERILOG_OPTIONS)
+                    .addString(this.verilogLibPath)
                     .add(file.getName())
                     .getArray()
             );

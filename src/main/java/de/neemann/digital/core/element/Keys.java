@@ -1028,4 +1028,10 @@ public final class Keys {
      */
     public static final Key<Boolean> SKIP_HDL =
             new Key<>("skipHDL", false).setSecondary();
+
+    /**
+     * verilog code lib path, find include and depends
+     */
+    public static final Key<File> SETTINGS_VERILOG_LIB_DIR =
+            new Key.KeyFile("verilogLib", new File("")).setDirectoryOnly(true).setSecondary();
 }
