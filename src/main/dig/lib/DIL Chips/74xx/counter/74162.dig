@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-  <version>1</version>
+  <version>2</version>
   <attributes>
     <entry>
       <string>shapeType</string>
@@ -8,11 +8,13 @@
     </entry>
     <entry>
       <string>Description</string>
-      <string>decimal synchronous counter</string>
+      <string>Decimal Synchronous Counter</string>
     </entry>
     <entry>
-      <string>lockedMode</string>
-      <boolean>true</boolean>
+      <string>romContent</string>
+      <romList>
+        <roms/>
+      </romList>
     </entry>
     <entry>
       <string>Width</string>
@@ -63,6 +65,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Load counter from inputs A B C D</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>~LD</string>
         </entry>
@@ -90,6 +96,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Clear counter to zero</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="1"/>
@@ -131,6 +141,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Ripple counter overflow</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>RCO</string>
         </entry>
@@ -150,6 +164,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Count Enable Carry In (with ENP)</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>ENT</string>
         </entry>
@@ -163,6 +181,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Count Enable (with ENT)</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>ENP</string>
@@ -216,6 +238,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Input low bit</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>A</string>
@@ -293,6 +319,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Output low bit</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>QA</string>
         </entry>
@@ -334,6 +364,10 @@
     <visualElement>
       <elementName>Out</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Output high bit</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>QD</string>
@@ -390,6 +424,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Input high bit</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>D</string>
@@ -698,4 +736,5 @@ end loop
       <p2 x="380" y="240"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>
