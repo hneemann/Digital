@@ -18,6 +18,13 @@
         <version.org.slf4j>1.7.24</version.org.slf4j>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>CodebergJnms</id>
+            <url>https://codeberg.org/api/packages/jnms/maven</url>
+        </repository>
+    </repositories>
+
     <distributionManagement>
         <site>
             <id></id>
@@ -334,6 +341,13 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>${version.org.slf4j}</version>
+        </dependency>
+
+        <!-- https://codeberg.org/jnms/-/packages/maven/be.jnms.simavr:simavr-java-bindings -->
+        <dependency>
+            <groupId>be.jnms.simavr</groupId>
+            <artifactId>simavr-java-bindings</artifactId>
+            <version>1.0.0-1.7</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.xmlgraphics/fop -->
