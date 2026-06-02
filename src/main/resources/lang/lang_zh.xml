@@ -1483,6 +1483,9 @@ In the file howTo.md you can find more details about translations.
     <string name="cli_help_stats_dig">电路文件名</string>
     <string name="cli_help_stats_csv">CSV 文件名，如果为空，将写入到标准输出。</string>
     <string name="cli_errorCreatingStats">创建统计文件时遇到错误！</string>
+    <string name="cli_help_length">打印电路关键路径的长度。</string>
+    <string name="cli_help_length_dig">电路文件名.</string>
+    <string name="cli_errorComputingCriticalPath">计算关键路径长度时出错!</string>
     <string name="menu_table_exportTablePlainText">导出纯文本</string>
     <string name="elem_ScopeTrigger">示波器</string>
     <string name="elem_ScopeTrigger_short">Scope</string>
