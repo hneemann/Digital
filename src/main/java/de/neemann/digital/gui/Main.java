@@ -63,6 +63,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -94,6 +95,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private static final String KEY_START_STOP_ACTION = "startStop";
     private static boolean experimental;
+    private static Main mainInstance;
 
     /**
      * @return true if experimental features are enabled
@@ -166,6 +168,11 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setIconImages(IconCreator.createImages("icon32.png", "icon64.png", "icon128.png"));
 
+        // Set this as the main instance if it's the main frame
+        if (builder.mainFrame) {
+            mainInstance = this;
+        }
+
         windowPosManager = new WindowPosManager(this);
 
         keepPrefMainFile = builder.keepPrefMainFile;
@@ -198,7 +205,18 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                 File name = fileHistory.getMostRecent();
                 LOGGER.debug("create with history file " + name);
                 if (name != null) {
-                    SwingUtilities.invokeLater(() -> loadFile(name, true, false));
+                    if (Screen.isMac() && builder.mainFrame) {
+                        // On macOS, delay loading the history file to give the file handler time to process
+                        Timer delayTimer = new Timer(500, e -> {
+                            if (filename == null) { // Only load if no file was opened by the handler
+                                loadFile(name, true, false);
+                            }
+                        });
+                        delayTimer.setRepeats(false);
+                        delayTimer.start();
+                    } else {
+                        SwingUtilities.invokeLater(() -> loadFile(name, true, false));
+                    }
                 }
             }
         }
@@ -1677,6 +1695,27 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         }
     }
 
+    /**
+     * Opens a file in the existing main instance, bringing the window to front
+     * Used by macOS file opening handler
+     *
+     * @param file the file to open
+     */
+    public static void openFileInExistingInstance(File file) {
+        if (mainInstance != null) {
+            SwingUtilities.invokeLater(() -> {
+                // Bring window to front
+                mainInstance.toFront();
+                mainInstance.requestFocus();
+
+                // Open the file
+                if (ClosingWindowListener.checkForSave(mainInstance, mainInstance)) {
+                    mainInstance.loadFile(file, true, true);
+                }
+            });
+        }
+    }
+
     private void loadFile(File filename, boolean setLibraryRoot, boolean toPref) {
         LOGGER.debug("loadFile: " + filename);
         try {
@@ -2180,6 +2219,32 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         if (Screen.isMac()) {
             setMacCopyPasteTo(UIManager.get("TextField.focusInputMap"));
             setMacCopyPasteTo(UIManager.get("TextArea.focusInputMap"));
+
+            // Set up file opening handler for macOS
+            if (Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                if (desktop.isSupported(Desktop.Action.APP_OPEN_FILE)) {
+                    desktop.setOpenFileHandler(e -> {
+                        if (e.getFiles() != null && !e.getFiles().isEmpty()) {
+                            File fileToOpen = e.getFiles().get(0);
+                            if (fileToOpen.getName().endsWith(".dig")) {
+                                SwingUtilities.invokeLater(() -> {
+                                    if (mainInstance != null) {
+                                        // Open file in existing instance
+                                        mainInstance.open(fileToOpen, false);
+                                    } else {
+                                        // Create new instance with the file
+                                        MainBuilder builder = new MainBuilder().setMainFrame().setFileToOpen(fileToOpen);
+                                        Main main = builder.build();
+                                        mainInstance = main;
+                                        main.setVisible(true);
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            }
         }
 
         File file = null;
