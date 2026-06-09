@@ -1028,4 +1028,16 @@ public final class Keys {
      */
     public static final Key<Boolean> SKIP_HDL =
             new Key<>("skipHDL", false).setSecondary();
+
+    /**
+     * The simavr MCU name
+     */
+    public static final Key<String> SIMAVR_MCU =
+            new Key<>("simavrMcu", "atmega328p");
+
+    /**
+     * Path to the ELF file containing the firmware to be loaded by simavr
+     */
+    public static final Key.KeyFile SIMAVR_FIRMWARE_FILE_PATH =
+            new Key.KeyFile("simAVRFirmwareFilePath", new File("src/test/resources/simavr/test-firmware/firmware.elf"));
 }

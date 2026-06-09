@@ -2585,4 +2585,8 @@ However, they must not be used above the header line listing the signal names.</
     <string name="tutorialNotNeeded">
         Skip Tutorial
     </string>
+    <string name="elem_Simavr">simavr</string>
+    <string name="elem_Simavr_tt">Generic AVR microcontroller based on simavr</string>
+    <string name="key_simavrMcu">MCU</string>
+    <string name="key_simAVRFirmwareFilePath">Firmware</string>
 </resources>

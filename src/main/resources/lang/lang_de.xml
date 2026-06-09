@@ -2628,4 +2628,8 @@ Sie dürfen jedoch nicht oberhalb der Kopfzeile mit den Signalnamen verwendet we
     <string name="tutorialNotNeeded">
         Tutorial überspringen
     </string>
+    <string name="elem_Simavr">simavr</string>
+    <string name="elem_Simavr_tt">Generischer AVR-Mikrocontroller auf Basis von simavr</string>
+    <string name="key_simavrMcu">MCU</string>
+    <string name="key_simAVRFirmwareFilePath">Firmware</string>
 </resources>
