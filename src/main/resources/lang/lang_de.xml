@@ -1694,6 +1694,10 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     </string>
     <string name="key_port">Port</string>
     <string name="key_port_tt">Der vom Server zu öffnende Port.</string>
+    <string name="key_telnetBufferSize">Puffergröße</string>
+    <string name="key_telnetBufferSize_tt">Die Größe (in Bytes) des Puffers für die empfangenen Daten.
+        Wenn Daten schneller empfangen werden, als sie verarbeitet werden können, kann der Puffer voll werden.
+        Wenn der Puffer voll ist, können eingehende Daten verloren gehen.</string>
 
     <string name="key_openRemotePort">Remote-Verbindung zulassen</string>
     <string name="key_openRemotePort_tt">Wenn gesetzt, wird ein TCP/IP Port geöffnet, über welchen die Steuerung
