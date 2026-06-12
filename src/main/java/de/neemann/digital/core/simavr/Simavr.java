@@ -24,7 +24,7 @@ import java.util.Arrays;
 public class Simavr extends Node implements Element {
     private static final Logger LOGGER = LoggerFactory.getLogger(Simavr.class);
 
-    private enum InputPin {
+    enum InputPin {
         PB0(0),
         PB1(1),
         PB2(2),
@@ -61,7 +61,7 @@ public class Simavr extends Node implements Element {
         }
     }
 
-    private enum OutputPin {
+    enum OutputPin {
         PB0(0),
         PB1(1),
         PB2(2),
@@ -109,8 +109,7 @@ public class Simavr extends Node implements Element {
             .addAttribute(Keys.SIMAVR_MCU)
             .addAttribute(Keys.SIMAVR_FIRMWARE_FILE_PATH);
 
-    @SuppressWarnings("unused")
-    private static void onGlobalLogMessage(int level, String message) {
+    static void onGlobalLogMessage(int level, String message) {
         message = "simavr: " + message.strip();
         if (level == simavr.LOG_OUTPUT) {
             LOGGER.info(message);
@@ -125,16 +124,16 @@ public class Simavr extends Node implements Element {
         }
     }
 
-    private ElementAttributes attributes;
+    ElementAttributes attributes;
 
-    private ObservableValue[] inputs;
-    private boolean[] inputValues;
+    ObservableValue[] inputs;
+    boolean[] inputValues;
 
-    private ObservableValue[] outputs;
-    private boolean[] outputValues;
+    ObservableValue[] outputs;
+    boolean[] outputValues;
 
-    private avr_t avr;
-    private int cpuState;
+    avr_t avr;
+    int cpuState;
 
     /**
      * Creates a new instance
@@ -205,13 +204,13 @@ public class Simavr extends Node implements Element {
         }
     }
 
-    private void setupIfNeeded() {
+    void setupIfNeeded() {
         if (avr == null) {
             setup();
         }
     }
 
-    private void setup() {
+    void setup() {
         System.err.println("setup()");
         try {
             LibSimAVR.load();
@@ -234,12 +233,12 @@ public class Simavr extends Node implements Element {
         simavr.avr_load_firmware(avr, elf);
     }
 
-    private void reset() {
+    void reset() {
         System.err.println("reset()");
         setup();
     }
 
-    private void runOneCycle() {
+    void runOneCycle() {
         setupIfNeeded();
 
         if (inputValues[InputPin.Reset.idx])
