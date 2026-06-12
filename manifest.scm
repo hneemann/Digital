@@ -24,5 +24,6 @@
        (list "bash"
              "coreutils" "findutils" "sed" "grep" "which"
              "openjdk@21:jdk" "maven" "git" ; digital
+             "gcc-cross-avr-toolchain"      ; simavr/test-firmware
              "pre-commit"                   ; tools
              "nss-certs")))
