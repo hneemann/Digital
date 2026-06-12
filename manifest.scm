@@ -23,7 +23,6 @@
                (commit "d54eccc4ad83715cc615556dc010abd4ef785cd4")))
        (list "bash"
              "coreutils" "findutils" "sed" "grep" "which"
-             "openjdk@21:jdk" "maven"
-             ;;"java-cglib"
-             "git" "pre-commit"
+             "openjdk@21:jdk" "maven" "git" ; digital
+             "pre-commit"                   ; tools
              "nss-certs")))
