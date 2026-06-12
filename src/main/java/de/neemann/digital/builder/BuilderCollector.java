@@ -34,6 +34,8 @@ public class BuilderCollector implements BuilderInterface<BuilderCollector> {
 
     @Override
     public BuilderCollector addCombinatorial(String name, Expression expression) throws BuilderException {
+        if (registered.containsKey(name))
+            throw new BuilderException("name used for a registered and a combinatorial signal: " + name);
         expression.traverse(vars);
         outputs.add(name);
         combinatorial.put(name, expression);
@@ -42,6 +44,8 @@ public class BuilderCollector implements BuilderInterface<BuilderCollector> {
 
     @Override
     public BuilderCollector addSequential(String name, Expression expression) throws BuilderException {
+        if (combinatorial.containsKey(name))
+            throw new BuilderException("name used for a registered and a combinatorial signal: " + name);
         expression.traverse(vars);
         outputs.add(name);
         registered.put(name, expression);
