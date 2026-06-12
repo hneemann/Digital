@@ -20,7 +20,7 @@
 (packages->manifest
  (pkgs (list (channel
                (inherit %default-guix-channel)
-               (commit "f4d97180ea4fc468cb83e5ba35d9db392ea3a647")))
+               (commit "d54eccc4ad83715cc615556dc010abd4ef785cd4")))
        (list "bash"
              "coreutils" "findutils" "sed" "grep" "which"
              "openjdk@21:jdk" "maven"
