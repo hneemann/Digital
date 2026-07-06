@@ -10,6 +10,7 @@ import be.jnms.simavr.swig.avr_ioport_state_t;
 import be.jnms.simavr.swig.avr_irq_t;
 import be.jnms.simavr.swig.avr_t;
 import be.jnms.simavr.swig.elf_firmware_t;
+import be.jnms.simavr.swig.java_method_t;
 import be.jnms.simavr.swig.simavr;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
@@ -154,7 +155,7 @@ public class Simavr extends Node implements Element {
         }
     }
 
-    static void onGlobalLogMessage(int level, String message) {
+    public static void onGlobalLogMessage(int level, String message) {
         message = "simavr: " + message.strip();
         if (level == simavr.LOG_OUTPUT) {
             LOGGER.info(message);
@@ -180,6 +181,7 @@ public class Simavr extends Node implements Element {
     ObservableValues inputs;
     Value[] inputValues;
 
+    java_method_t onGlobalLogMessageMethod;
     avr_t avr;
     int cpuState;
 
@@ -275,7 +277,15 @@ public class Simavr extends Node implements Element {
             // TODO
             throw new IllegalStateException(e);
         }
-        simavr.swigSetLoggerMethod(Simavr.class, "onGlobalLogMessage");
+
+        try {
+            this.onGlobalLogMessageMethod = new java_method_t(getClass().getMethod("onGlobalLogMessage", int.class, String.class));
+        } catch (NoSuchMethodException e) {
+            // TODO
+            throw new IllegalStateException(e);
+        }
+
+        simavr.avr_global_logger_external_set_java_method(onGlobalLogMessageMethod);
 
         elf_firmware_t elf = new elf_firmware_t();
         if (simavr.elf_read_firmware(firmwareFilePath, elf) != 0) {
@@ -302,7 +312,7 @@ public class Simavr extends Node implements Element {
         for (int i = 0; i < mcu.ports.size(); i++) {
             final Mcu.Port port = mcu.ports.get(i);
             final Value value = inputValues[2 + i];
-            final long ctl = simavr.AVR_IOCTL_IOPORT_GETIRQ_fn((short) port.name);
+            final long ctl = simavr.AVR_IOCTL_IOPORT_GETIRQ((short) port.name);
             for (int bit = 0; bit < port.bits; bit++) {
                 final avr_irq_t irq = simavr.avr_io_getirq(avr, ctl, bit);
                 simavr.avr_raise_irq(irq, (value.value >> bit) & 1);
@@ -323,7 +333,7 @@ public class Simavr extends Node implements Element {
             final Mcu.Port port = mcu.ports.get(i);
             final Value value = outputValues[i];
             final avr_ioport_state_t state = new avr_ioport_state_t();
-            final long ctl = simavr.AVR_IOCTL_IOPORT_GETSTATE_fn((short) port.name);
+            final long ctl = simavr.AVR_IOCTL_IOPORT_GETSTATE((short) port.name);
             simavr.avr_ioctl(avr, ctl, state.asVoidPointer());
 
             value.value = state.getPort() & value.bitMask;
