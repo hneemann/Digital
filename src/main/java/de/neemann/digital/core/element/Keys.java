@@ -1040,5 +1040,5 @@ public final class Keys {
      * Path to the ELF file containing the firmware to be loaded by simavr
      */
     public static final Key.KeyFile SIMAVR_FIRMWARE_FILE_PATH =
-            new Key.KeyFile("simAVRFirmwareFilePath", new File("src/test/resources/simavr/test-firmware/firmware.elf"));
+            new Key.KeyFile("simavrFirmwareFilePath", new File("src/test/resources/simavr/test-firmware/firmware.elf"));
 }
