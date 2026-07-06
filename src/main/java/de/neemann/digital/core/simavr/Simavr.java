@@ -294,6 +294,8 @@ public class Simavr extends Node implements Element {
         }
 
         avr = simavr.avr_make_mcu_by_name(mcu.name());
+        cpuState = simavr.cpu_Limbo;
+
         simavr.avr_init(avr);
         simavr.avr_load_firmware(avr, elf);
     }
