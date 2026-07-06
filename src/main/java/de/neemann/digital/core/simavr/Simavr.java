@@ -306,8 +306,11 @@ public class Simavr extends Node implements Element {
     void runOneCycle() {
         setupIfNeeded();
 
-        if (inputValues[0].getBool()) // Reset
+        if (inputValues[0].getBool())
+        {
+            reset();
             return;
+        }
 
         for (int i = 0; i < mcu.ports.size(); i++) {
             final Mcu.Port port = mcu.ports.get(i);
