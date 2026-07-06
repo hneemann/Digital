@@ -11,7 +11,7 @@
   </attributes>
   <visualElements>
     <visualElement>
-      <elementName>arduino_uno.dig</elementName>
+      <elementName>ArduinoUno.dig</elementName>
       <elementAttributes>
         <entry>
           <string>generic</string>
