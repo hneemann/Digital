@@ -20,10 +20,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * The Simavr component
@@ -107,6 +110,7 @@ public class Simavr extends Node implements Element {
             super(Simavr.class);
             addAttribute(Keys.SIMAVR_MCU);
             addAttribute(Keys.SIMAVR_FIRMWARE_FILE_PATH);
+            addAttribute(Keys.WIDTH);
         }
 
         @Override
@@ -121,6 +125,8 @@ public class Simavr extends Node implements Element {
         public PinDescriptions getOutputDescriptions(ElementAttributes attributes) throws PinException {
             final Mcu mcu = attributes.get(Keys.SIMAVR_MCU);
             final List<PinDescription> outputs = new ArrayList<>();
+            outputs.add(new PinInfo("TxC", "TX Clock", PinDescription.Direction.output, null).setClock());
+            outputs.add(new PinInfo("TxD", "TX Data (8-bit)", PinDescription.Direction.output, null));
             for (final Mcu.Port port : mcu.ports) {
                 outputs.add(new PinInfo("P%c".formatted(port.name), "Port%c".formatted(port.name), PinDescription.Direction.both, null));
             }
@@ -182,8 +188,10 @@ public class Simavr extends Node implements Element {
     Value[] inputValues;
 
     java_method_t onGlobalLogMessageMethod;
+    java_method_t onTxCharMethod;
     avr_t avr;
     int cpuState;
+    Queue<Long> txQueue;
 
     /**
      * Creates a new instance
@@ -196,10 +204,16 @@ public class Simavr extends Node implements Element {
         this.mcu = attributes.get(Keys.SIMAVR_MCU);
         this.firmwareFilePath = attributes.get(Keys.SIMAVR_FIRMWARE_FILE_PATH).getPath();
 
-        outputCount = mcu.ports.size();
-        outputs = new ObservableValues(mcu.ports.stream()
-                .map(port -> new ObservableValue("P%c".formatted(port.name), port.bits))
-                .toArray(ObservableValue[]::new));
+        outputCount = 2 + mcu.ports.size();
+        outputs = new ObservableValues(
+                Stream.concat(
+                        Stream.of(
+                                new ObservableValue("TxC", 1),
+                                new ObservableValue("TxD", 8)),
+                        mcu.ports
+                                .stream()
+                                .map(port -> new ObservableValue("P%c".formatted(port.name), port.bits)))
+                        .toArray(ObservableValue[]::new));
         outputValues = outputs.stream().map(Value::new).toArray(Value[]::new);
 
         inputCount = 2 + mcu.ports.size();
@@ -208,6 +222,7 @@ public class Simavr extends Node implements Element {
 
         avr = null;
         cpuState = 0;
+        txQueue = null;
     }
 
     @Override
@@ -280,6 +295,7 @@ public class Simavr extends Node implements Element {
 
         try {
             this.onGlobalLogMessageMethod = new java_method_t(getClass().getMethod("onGlobalLogMessage", int.class, String.class));
+            this.onTxCharMethod = new java_method_t(this, getClass().getMethod("onTxChar", long.class, long.class));
         } catch (NoSuchMethodException e) {
             // TODO
             throw new IllegalStateException(e);
@@ -295,9 +311,19 @@ public class Simavr extends Node implements Element {
 
         avr = simavr.avr_make_mcu_by_name(mcu.name());
         cpuState = simavr.cpu_Limbo;
+        txQueue = new ArrayDeque<>();
 
         simavr.avr_init(avr);
         simavr.avr_load_firmware(avr, elf);
+
+        simavr.avr_irq_register_notify(
+                simavr.avr_io_getirq(avr, simavr.AVR_IOCTL_UART_GETIRQ((short) '0'), simavr.UART_IRQ_OUTPUT),
+                onTxCharMethod);
+    }
+
+    public void onTxChar(long irqPtr, long value) {
+        avr_irq_t irq = new avr_irq_t(irqPtr, false);
+        txQueue.add(value);
     }
 
     void reset() {
@@ -334,9 +360,22 @@ public class Simavr extends Node implements Element {
             }
         }
 
+        final Value txC = outputValues[0];
+        final Value txD = outputValues[1];
+
+        txC.highZMask = 0;
+        txD.highZMask = 0x00;
+
+        if (txC.value == 1)
+            txC.value = 0;
+        else if (!txQueue.isEmpty()) {
+            txC.value = 1;
+            txD.value = txQueue.remove() & 0xff;
+        }
+
         for (int i = 0; i < mcu.ports.size(); i++) {
             final Mcu.Port port = mcu.ports.get(i);
-            final Value value = outputValues[i];
+            final Value value = outputValues[2 + i];
             final avr_ioport_state_t state = new avr_ioport_state_t();
             final long ctl = simavr.AVR_IOCTL_IOPORT_GETSTATE((short) port.name);
             simavr.avr_ioctl(avr, ctl, state.asVoidPointer());
