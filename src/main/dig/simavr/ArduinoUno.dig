@@ -192,6 +192,10 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>Description</string>
+          <string>D0 (not connected to internal UART RX)</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>D0</string>
         </entry>
@@ -204,6 +208,10 @@
         <entry>
           <string>small</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Description</string>
+          <string>D1 (not connected to internal UART TX)</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -220,6 +228,10 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>Description</string>
+          <string>D2</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>D2</string>
         </entry>
@@ -232,6 +244,10 @@
         <entry>
           <string>small</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Description</string>
+          <string>D3</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -248,6 +264,10 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>Description</string>
+          <string>D4</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>D4</string>
         </entry>
@@ -260,6 +280,10 @@
         <entry>
           <string>small</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Description</string>
+          <string>D5</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -276,6 +300,10 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>Description</string>
+          <string>D6</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>D6</string>
         </entry>
@@ -288,6 +316,10 @@
         <entry>
           <string>small</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Description</string>
+          <string>D7</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -304,6 +336,10 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>Description</string>
+          <string>D8 (ICP1)</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>D8</string>
         </entry>
@@ -316,6 +352,10 @@
         <entry>
           <string>small</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Description</string>
+          <string>D9</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -332,6 +372,10 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>Description</string>
+          <string>D10 (SPI SS)</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>D10</string>
         </entry>
@@ -344,6 +388,10 @@
         <entry>
           <string>small</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Description</string>
+          <string>D11 (SPI MOSI)</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -360,6 +408,10 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>Description</string>
+          <string>D12 (SPI MISO)</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>D12</string>
         </entry>
@@ -372,6 +424,10 @@
         <entry>
           <string>small</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Description</string>
+          <string>D13 (SPI SCK, on-board LED)</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -388,6 +444,10 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>Description</string>
+          <string>D14/A0</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>D14</string>
         </entry>
@@ -400,6 +460,10 @@
         <entry>
           <string>small</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Description</string>
+          <string>D15/A1</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -416,6 +480,10 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>Description</string>
+          <string>D16/A2</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>D16</string>
         </entry>
@@ -428,6 +496,10 @@
         <entry>
           <string>small</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Description</string>
+          <string>D17/A3</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -454,6 +526,10 @@
           <boolean>true</boolean>
         </entry>
         <entry>
+          <string>Description</string>
+          <string>D18/A4 (I²C SDA)</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>D18</string>
         </entry>
@@ -466,6 +542,10 @@
         <entry>
           <string>small</string>
           <boolean>true</boolean>
+        </entry>
+        <entry>
+          <string>Description</string>
+          <string>D19/A5 (I²C SCL)</string>
         </entry>
         <entry>
           <string>Label</string>
