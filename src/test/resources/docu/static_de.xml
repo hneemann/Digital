@@ -753,6 +753,11 @@
             <shortcut key="D">Beim Ziehen einer rechteckigen Leitung in den Diagonalmodus wechseln</shortcut>
             <shortcut key="F">Beim Ziehen einer rechteckigen Leitung die Orientierung wechseln</shortcut>
             <shortcut key="S">Leitung in zwei Leitungen teilen</shortcut>
+            <shortcut key="I">Beim Platzieren ein Bauteil mit genau einem Eingang und einem Ausgang in die
+                waagerechte oder senkrechte Leitung unter der Bauteilvorschau einfügen. Mit R die Anschlüsse zuvor
+                an der Leitung ausrichten. Die Leitung muss lang genug sein; zwischen den Anschlüssen dürfen
+                keine vorhandenen Anschlüsse oder Abzweigungen liegen. Der Vorgang lässt sich in einem Schritt
+                rückgängig machen.</shortcut>
             <shortcut key="Q">Bauteil unter der Maus kopieren</shortcut>
             <shortcut key="STRG-Q">Bauteil unter der Maus mit Default-Werten kopieren</shortcut>
             <shortcut key="ESC">Abbrechen der aktuellen Aktion</shortcut>

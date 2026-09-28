@@ -685,6 +685,11 @@
             <shortcut key="D">While drawing a wire switches to the diagonal mode.</shortcut>
             <shortcut key="F">While drawing a line flips the orientation.</shortcut>
             <shortcut key="S">Splits a single wire into two wires.</shortcut>
+            <shortcut key="I">While placing a component with exactly one input and one output,
+                inserts it into the horizontal or vertical wire overlapped by the component preview.
+                Use R to align its pins with the wire first. The wire must be long enough;
+                existing pins or branches between the component's pins prevent insertion.
+                Undo restores both the wire and the component placement in one step.</shortcut>
             <shortcut key="Q">Copy the component the mouse pointer is hovering over.</shortcut>
             <shortcut
                     key="CTRL-Q">Copy the component the mouse pointer is hovering over with default settings.</shortcut>
