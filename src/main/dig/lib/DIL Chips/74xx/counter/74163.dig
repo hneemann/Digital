@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
-  <version>1</version>
+  <version>2</version>
   <attributes>
     <entry>
       <string>shapeType</string>
@@ -63,6 +63,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Parallel Enable</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>~PE</string>
         </entry>
@@ -90,6 +94,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Synchronous Reset</string>
+        </entry>
         <entry>
           <string>rotation</string>
           <rotation rotation="1"/>
@@ -131,6 +139,10 @@
       <elementName>Out</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Terminal Count (overflow out)</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>TC</string>
         </entry>
@@ -150,6 +162,10 @@
       <elementName>In</elementName>
       <elementAttributes>
         <entry>
+          <string>Description</string>
+          <string>Count Enable Trickle (overflow in)</string>
+        </entry>
+        <entry>
           <string>Label</string>
           <string>CET</string>
         </entry>
@@ -163,6 +179,10 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes>
+        <entry>
+          <string>Description</string>
+          <string>Count Enable Parallel</string>
+        </entry>
         <entry>
           <string>Label</string>
           <string>CEP</string>
@@ -618,4 +638,5 @@ end loop
       <p2 x="460" y="420"/>
     </wire>
   </wires>
+  <measurementOrdering/>
 </circuit>
