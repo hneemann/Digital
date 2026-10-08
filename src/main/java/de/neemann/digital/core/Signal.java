@@ -17,6 +17,7 @@ public final class Signal implements Comparable<Signal> {
     private ObservableValue bidirectionalReader;
     private boolean showInGraph;
     private boolean testOutput;
+    private boolean isSwitch;
 
     /**
      * Creates a new Instance
@@ -76,6 +77,24 @@ public final class Signal implements Comparable<Signal> {
      */
     public boolean isTestOutput() {
         return testOutput;
+    }
+
+    /**
+     * @return true if this is a switch
+     */
+    public boolean isSwitch() {
+        return isSwitch;
+    }
+
+    /**
+     * Sets the switch state
+     *
+     * @param aSwitch true if this Signal is a switch
+     * @return this for chained calls
+     */
+    public Signal setSwitch(boolean aSwitch) {
+        isSwitch = aSwitch;
+        return this;
     }
 
     /**
