@@ -9,6 +9,7 @@ import de.neemann.digital.analyse.expression.format.FormatToExpression;
 import de.neemann.digital.core.IntFormat;
 import de.neemann.digital.core.arithmetic.BarrelShifterMode;
 import de.neemann.digital.core.arithmetic.LeftRightFormat;
+import de.neemann.digital.core.element.Key.KeyInteger;
 import de.neemann.digital.core.extern.Application;
 import de.neemann.digital.core.io.CommonConnectionType;
 import de.neemann.digital.core.io.InValue;
@@ -1028,4 +1029,13 @@ public final class Keys {
      */
     public static final Key<Boolean> SKIP_HDL =
             new Key<>("skipHDL", false).setSecondary();
+
+    /**
+     * Telnet buffer size
+     */
+    public static final Key<Integer> TELNET_BUFFER_SIZE =
+            new KeyInteger("telnetBufferSize", 1024)
+                    .setMin(1)
+                    .setMax(1 << 20)
+                    .allowGroupEdit();
 }

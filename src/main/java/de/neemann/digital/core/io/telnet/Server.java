@@ -18,7 +18,7 @@ import java.net.Socket;
  */
 public class Server {
     private final ServerSocket serverSocket;
-    private final ByteBuffer buffer;
+    private ByteBuffer buffer;
     private final ServerThread serverThread;
     private boolean telnetEscape;
     private ClientThread client;
@@ -26,7 +26,6 @@ public class Server {
     private SyncAccess syncAccess;
 
     Server(int port) throws IOException {
-        buffer = new ByteBuffer(1024);
         serverSocket = new ServerSocket(port);
         serverThread = new ServerThread();
         serverThread.start();
@@ -70,6 +69,10 @@ public class Server {
 
     void setTelnetEscape(boolean telnetEscape) {
         this.telnetEscape = telnetEscape;
+    }
+
+    void setBufferSize(int bufferSize) {
+        buffer = new ByteBuffer(bufferSize);
     }
 
     private void dataReceived(int data) {
