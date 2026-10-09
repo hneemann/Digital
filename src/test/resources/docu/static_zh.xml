@@ -432,6 +432,9 @@
             <shortcut key="D">画导线时使用对角线模式</shortcut>
             <shortcut key="F">画线时翻转方向</shortcut>
             <shortcut key="S">分割一条导线为两条</shortcut>
+            <shortcut key="I">放置只有一个输入和一个输出的元件时，将元件插入其预览图形覆盖的水平或竖直导线。
+                可先按 R 旋转，使引脚方向与导线一致。导线必须足够长，且两引脚之间不能有已有引脚或分支。
+                按 CTRL-Z 可以一次撤销整个插入操作。</shortcut>
             <shortcut key="ESC">放弃当前操作</shortcut>
             <shortcut key="Del">删除</shortcut>
             <shortcut key="Backspace">删除</shortcut>
