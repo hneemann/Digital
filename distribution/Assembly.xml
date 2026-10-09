@@ -39,6 +39,10 @@
             <outputDirectory>/</outputDirectory>
         </file>
         <file>
+            <source>${basedir}/src/main/svg/iconSmall.svg</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
+        <file>
             <source>${basedir}/distribution/ReleaseNotes.txt</source>
             <outputDirectory>/</outputDirectory>
         </file>
