@@ -171,6 +171,8 @@ public class Context implements HGSMap {
         if (v != null) {
             if (v.getClass().isAssignableFrom(val.getClass()))
                 map.put(name, val);
+            else if (v instanceof Integer && val instanceof Long)
+                map.put(name, Math.toIntExact((Long) val));
             else
                 throw new HGSEvalException("Variable '" + name + "' has wrong type. Needs to be "
                         + v.getClass().getSimpleName() + ", is " + val.getClass().getSimpleName());
