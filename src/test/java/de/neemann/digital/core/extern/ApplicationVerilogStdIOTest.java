@@ -10,11 +10,19 @@ import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.core.extern.handler.ProcessInterface;
 import de.neemann.digital.hdl.hgs.Context;
 import junit.framework.TestCase;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.contrib.java.lang.system.EnvironmentVariables;
 
 import java.io.File;
+import java.lang.reflect.Field;
+import java.util.Map;
 
 public class ApplicationVerilogStdIOTest extends TestCase {
 
+
+    @Rule
+    public final EnvironmentVariables environmentVariables = new EnvironmentVariables();
     private class TestApp extends ApplicationVerilogStdIO {
 
         @Override
@@ -91,6 +99,24 @@ public class ApplicationVerilogStdIOTest extends TestCase {
         assertEquals("test", attr.getLabel());
         assertEquals("a:5,b:5", attr.get(Keys.EXTERNAL_INPUTS));
         assertEquals("y:5", attr.get(Keys.EXTERNAL_OUTPUTS));
+    }
+
+    @Test
+    public void testReplaceEnvVars() {
+        String path = "d:\\verilogcode\\lib";
+        String pathAfterReplace = ApplicationVerilogStdIO.replaceEnvVars(path);
+        assertEquals("d:\\\\verilogcode\\\\lib",pathAfterReplace);
+
+        path = "/home/verilogcode/lib";
+        pathAfterReplace = ApplicationVerilogStdIO.replaceEnvVars(path);
+        assertEquals(path,pathAfterReplace);
+
+//        path = "${VERILOG_LIB_PATH}";
+//        environmentVariables.set("VERILOG_LIB_PATH","/home/verilogcode/lib");
+//        pathAfterReplace = ApplicationVerilogStdIO.replaceEnvVars(path);
+//        assertEquals("/home/verilogcode/lib",pathAfterReplace);
+//        environmentVariables.clear("VERILOG_LIB_PATH");
+
     }
 
     private ElementAttributes extractParameters(String code) {

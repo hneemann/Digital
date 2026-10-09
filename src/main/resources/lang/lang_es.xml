@@ -1125,6 +1125,7 @@ In the file howTo.md you can find more details about translations.
   <string name="key_applicationType_Generic">Genérica</string>
   <string name="key_applicationType_GHDL">GHDL</string>
   <string name="key_applicationType_IVERILOG">iVerilog</string>
+  <string name="key_applicationType_Socket">Socket</string>
   <string name="key_externalInputs">Entradas</string>
   <string name="key_externalInputs_tt">Entradas del proceso externo.
 		Es una lista de nombres de señales separadas por comas. Para cada nombre de señal, usando ":", puede indicarse
