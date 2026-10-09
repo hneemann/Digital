@@ -286,6 +286,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
             if (jarComponentManager == null)
                 jarComponentManager = new JarComponentManager(this);
             source.registerComponents(jarComponentManager);
+            rescanFolder();
         } catch (InvalidNodeException e) {
             exception = e;
         }
