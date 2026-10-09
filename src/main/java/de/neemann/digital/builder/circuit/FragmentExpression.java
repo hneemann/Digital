@@ -33,6 +33,9 @@ public class FragmentExpression implements Fragment {
         return f;
     }
 
+
+
+
     /**
      * Creates a new instance
      *
@@ -56,10 +59,22 @@ public class FragmentExpression implements Fragment {
             fragments.add(new FragmentHolder(fr));
     }
 
+    private int calculateMergerPositionY(int centerIndex) {
+        int y;
+        boolean isEvenNumberOfInputs = (fragments.size() & 1) == 0;
+        if (isEvenNumberOfInputs) {
+            int y1 = fragments.get(centerIndex - 1).fragment.getOutputs().get(0).y;
+            int y2 = fragments.get(centerIndex).fragment.getOutputs().get(0).y;
+            y = raster((y1 + y2) / 2) - centerIndex * SIZE;
+        } else {
+            y = fragments.get(centerIndex).fragment.getOutputs().get(0).y - centerIndex * SIZE;
+        }
+        return y;
+    }
     private Box doLayoutNormal() {
         ArrayList<ConstExpression> constExpr = new ArrayList<>();
         int height = 0;
-        int width = 0;
+        int maxWidth = 0;
         for (FragmentHolder fr : fragments) {
             fr.fragment.setPos(new Vector(0, height));
             if (isConst(fr.fragment))
@@ -68,8 +83,8 @@ public class FragmentExpression implements Fragment {
 
             height += fr.box.getHeight();
             int w = fr.box.getWidth();
-            if (w > width)
-                width = w;
+            if (w > maxWidth)
+                maxWidth = w;
 
             height += SIZE * 2;
         }
@@ -77,31 +92,22 @@ public class FragmentExpression implements Fragment {
 
         Box mergerBox = merger.doLayout();
 
-        width += (fragments.size() / 2 + 1) * SIZE;
+        maxWidth += (fragments.size() / 2 + 1) * SIZE;
 
         if (alignedWidth > 0) {
-            width = alignedWidth - mergerBox.getWidth();
+            maxWidth = alignedWidth - mergerBox.getWidth();
         }
 
         for (ConstExpression ce : constExpr)
-            ce.setXPos(width);
+            ce.setXPos(maxWidth);
 
         int centerIndex = fragments.size() / 2;
-        int y;
-        if ((fragments.size() & 1) == 0) {
-            // even number of inputs
-            int y1 = fragments.get(centerIndex - 1).fragment.getOutputs().get(0).y;
-            int y2 = fragments.get(centerIndex).fragment.getOutputs().get(0).y;
-            y = raster((y1 + y2) / 2) - centerIndex * SIZE;
-        } else {
-            // odd number of inputs
-            y = fragments.get(centerIndex).fragment.getOutputs().get(0).y - centerIndex * SIZE;
-        }
-        merger.setPos(new Vector(width, y));
+        int mergerPosY = calculateMergerPositionY(centerIndex);
+        merger.setPos(new Vector(maxWidth, mergerPosY));
 
-        width += mergerBox.getWidth();
+        maxWidth += mergerBox.getWidth();
 
-        return new Box(width, Math.max(height, y + mergerBox.getHeight()));
+        return new Box(maxWidth, Math.max(height, mergerPosY + mergerBox.getHeight()));
     }
 
     private boolean isConst(Fragment fragment) {
@@ -119,7 +125,10 @@ public class FragmentExpression implements Fragment {
 
 
         Box mergerBox = merger.doLayout();
-        merger.setPos(new Vector(xPos, 0));
+
+        int mergerPosX = xPos;
+        Vector mergerPos = new Vector(mergerPosX, 0);
+        merger.setPos(mergerPos);
 
         Iterator<Vector> in = merger.getInputs().iterator();
         for (FragmentHolder fr : fragments) {
@@ -130,13 +139,20 @@ public class FragmentExpression implements Fragment {
         return new Box(mergerBox.getWidth() + SIZE, mergerBox.getHeight());
     }
 
+    private boolean containsNonVariableFragments() {
+        for (FragmentHolder fr : fragments) {
+            if (!(fr.fragment instanceof FragmentVariable)) {
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public Box doLayout() {
-        for (FragmentHolder fr : fragments)
-            if (!(fr.fragment instanceof FragmentVariable)) {
-                normalLayout = true;
-                return doLayoutNormal();
-            }
+        if (containsNonVariableFragments()) {
+            normalLayout = true;
+            return doLayoutNormal();
+        }
 
         normalLayout = false;
         return doLayoutOnlyVariables();
@@ -246,4 +262,6 @@ public class FragmentExpression implements Fragment {
         merger.traverse(v);
         return v;
     }
+
+
 }
