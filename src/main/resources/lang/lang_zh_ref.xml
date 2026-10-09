@@ -1866,6 +1866,9 @@ In the file howTo.md you can find more details about translations.
         If this option is missing, the table is written to stdout.
     </string>
     <string name="cli_errorCreatingStats">Error while creating the stats file!</string>
+    <string name="cli_help_length">Prints the length of the critical path of the circuit.</string>
+    <string name="cli_help_length_dig">File name of the circuit.</string>
+    <string name="cli_errorComputingCriticalPath">Error while computing the critical path length!</string>
     <string name="menu_table_exportTablePlainText">Export Plain Text</string>
     <string name="elem_ScopeTrigger">Triggered Data Graph</string>
     <string name="elem_ScopeTrigger_short">Scope</string>

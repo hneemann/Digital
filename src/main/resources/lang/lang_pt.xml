@@ -2209,6 +2209,9 @@ In the file howTo.md you can find more details about translations.
         Se essa opção for omitida, a tabela será escrita na saída padrão.
     </string>
     <string name="cli_errorCreatingStats">Erro ao criar o arquivo com estatísticas!</string>
+    <string name="cli_help_length">Imprime o comprimento do caminho crítico do circuito.</string>
+    <string name="cli_help_length_dig">Nome do arquivo contendo circuito.</string>
+    <string name="cli_errorComputingCriticalPath">Erro no cálculo do comprimento do caminho crítico!</string>
     <string name="menu_table_exportTablePlainText">Exportar para texto puro</string>
     <string name="elem_StepperMotorBipolar_pin_A-">Bobina A, negativo</string>
     <string name="elem_StepperMotorBipolar_pin_B+">Bobina B, positivo</string>

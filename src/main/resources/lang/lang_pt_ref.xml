@@ -2250,6 +2250,9 @@ However, they must not be used above the header line listing the signal names.&l
         If this option is missing, the table is written to stdout.
     </string>
     <string name="cli_errorCreatingStats">Error while creating the stats file!</string>
+    <string name="cli_help_length">Prints the length of the critical path of the circuit.</string>
+    <string name="cli_help_length_dig">File name of the circuit.</string>
+    <string name="cli_errorComputingCriticalPath">Error while computing the critical path length!</string>
     <string name="menu_table_exportTablePlainText">Export Plain Text</string>
     <string name="elem_StepperMotorBipolar_pin_A-">Coil A, negative</string>
     <string name="elem_StepperMotorBipolar_pin_B+">Coil B, positive</string>

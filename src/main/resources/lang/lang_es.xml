@@ -2116,6 +2116,9 @@ Sin embargo, no se deben usar por encima de la línea del encabezado que contien
         Si no está indicada esta opción, se escribe la tabla en stdout.
     </string>
     <string name="cli_errorCreatingStats">Error al crear el archivo de estadísticas.</string>
+    <string name="cli_help_length">Imprime la longitud del camino crítico del circuito.</string>
+    <string name="cli_help_length_dig">Nombre del archivo del circuito.</string>
+    <string name="cli_errorComputingCriticalPath">Error al calcular la longitud del camino crítico.</string>
     <string name="menu_table_exportTablePlainText">Exporta texto plano</string>
     <string name="elem_ScopeTrigger">Gráfica de datos activos</string>
     <string name="elem_ScopeTrigger_short">Rango</string>
