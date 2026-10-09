@@ -6,6 +6,7 @@
 package de.neemann.digital.builder.ATF150x;
 
 import de.neemann.digital.builder.ExpressionToFileExporter;
+import de.neemann.digital.builder.PinMap;
 import de.neemann.digital.builder.tt2.StartATF150xFitter;
 import de.neemann.digital.builder.tt2.TT2Exporter;
 
@@ -121,9 +122,9 @@ public enum ATFDevice {
 
     private TT2Exporter getTT2Exporter(String projectName) {
         TT2Exporter tt2 = new TT2Exporter(projectName);
-        tt2.getPinMapping()
-                .setClockPin(clockPin)
-                .setAvailBidirectional(pins);
+        PinMap pinMap = tt2.getPinMapping();
+        pinMap.setClockPin(clockPin);
+        pinMap.setAvailBidirectional(pins);
         tt2.setDevice(getTT2DevName());
         return tt2;
     }
