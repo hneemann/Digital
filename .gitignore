@@ -83,3 +83,7 @@ nbactions.xml
 .project
 .settings
 .vscode
+
+# Nix
+.direnv/
+result
