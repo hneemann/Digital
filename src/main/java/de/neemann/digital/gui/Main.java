@@ -470,6 +470,13 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         view.add(zoomIn.createJMenuItem());
         view.add(scaleMenu);
         view.addSeparator();
+        view.add(new ToolTipAction(Lang.get("appearance_title")) {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                new AppearanceDialog(Main.this).setVisible(true);
+            }
+        }.createJMenuItem());
+        view.addSeparator();
         view.add(treeCheckBox);
         view.add(presentationMode);
         view.addSeparator();
@@ -2163,17 +2170,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         if (LOGGER.isDebugEnabled())
             LOGGER.debug(InfoDialog.getInstance().getRevision());
 
-        /*
-        The Apple look an feel, which can be enabled by choosing the UIManager.getSystemLookAndFeelClassName()
-        on MacOS has problems with the component tree view because it does not support different item heights.
-        Also, the HTML rendering does not seem to be supported. See GitHub #190.
-        Therefore also on MosOS the MetalLookAndFeel is used.
-         */
-        try { // enforce MetalLookAndFeel
-            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-        } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        Appearance.apply(Settings.getInstance().get(Appearance.MODE));
         ToolTipManager.sharedInstance().setDismissDelay(10000);
         URL.setURLStreamHandlerFactory(ElementHelpDialog.createURLStreamHandlerFactory());
 
