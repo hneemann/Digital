@@ -99,7 +99,7 @@ public class Switch implements Element, NodeInterface, Countable {
                     setClosed(value.getBool());
                 }
             });
-            model.addInput(new Signal(label, value));
+            model.addInput(new Signal(label, value).setSwitch(true));
         }
     }
 

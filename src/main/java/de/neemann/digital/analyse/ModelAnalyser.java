@@ -354,7 +354,7 @@ public class ModelAnalyser {
         long time = System.currentTimeMillis();
 
 
-        if (tableRows <= steps || tableRows <= 128)
+        if (tableRows <= steps || tableRows <= 128 || hasSwitchInput())
             simpleFiller(tt);
         else
             dependantFiller(tt, da);
@@ -363,6 +363,16 @@ public class ModelAnalyser {
         LOGGER.debug("model analysis: " + time / 1000.0 + " sec");
 
         return tt;
+    }
+
+    /**
+     * @return true if there is a switch input
+     */
+    private boolean hasSwitchInput() {
+        for (Signal i : inputs)
+            if (i.isSwitch())
+                return true;
+        return false;
     }
 
     private boolean modelContainsSwitches() {
