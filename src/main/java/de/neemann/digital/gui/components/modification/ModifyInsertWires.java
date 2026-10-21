@@ -11,6 +11,7 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.undo.Modification;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -54,7 +55,7 @@ public final class ModifyInsertWires implements Modification<Circuit> {
     public void modify(Circuit circuit) {
         ArrayList<Wire> wl = new ArrayList<>(wires.size());
         for (LocalWire w : wires)
-            wl.add(new Wire(w.p1, w.p2));
+            wl.add(new Wire(w.p1, w.p2).setColor(w.color));
         circuit.add(wl);
     }
 
@@ -66,10 +67,12 @@ public final class ModifyInsertWires implements Modification<Circuit> {
     private static final class LocalWire {
         private final Vector p1;
         private final Vector p2;
+        private final Color color;
 
         private LocalWire(Wire w) {
             this.p1 = w.p1;
             this.p2 = w.p2;
+            this.color = w.getColor();
         }
     }
 }

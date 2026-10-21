@@ -16,6 +16,7 @@ import de.neemann.digital.draw.shapes.Drawable;
 import de.neemann.digital.draw.shapes.ObservableValueReader;
 import de.neemann.digital.gui.Settings;
 
+import java.awt.Color;
 import java.util.Collection;
 
 import static de.neemann.digital.draw.shapes.GenericShape.SIZE;
@@ -25,6 +26,7 @@ import static de.neemann.digital.draw.shapes.GenericShape.SIZE2;
  * A simple wire described by two points.
  */
 public class Wire implements Drawable, Movable, ObservableValueReader {
+    private Color color;
     private static final int MIN_LABEL_WIRE_LEN = SIZE * 4;
     private static final int MIN_CROSS_WIRE_LEN = SIZE * 2;
     private static final int MIN_CROSS_WIRE_LEN_SPLITTER = SIZE * 6;
@@ -68,6 +70,7 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
     public Wire(Wire proto) {
         this.p1 = new Vector(proto.p1);
         this.p2 = new Vector(proto.p2);
+        this.color = proto.color;
         this.p1Dot = proto.p1Dot;
         this.p2Dot = proto.p2Dot;
     }
@@ -84,9 +87,13 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
     public void drawTo(Graphic graphic, Style highLight) {
         Style style = highLight;
         if (style == null)
-            style = Style.getWireStyle(value);
+            style = getWireStyle(color, value);
 
         graphic.drawLine(p1, p2, style);
+        Style coreStyle = highLight == null ? getWireCoreStyle(color, value) : null;
+        if (coreStyle != null)
+            graphic.drawLine(p1, p2, coreStyle);
+
         if (highLight == Style.ERROR && graphic.isFlagSet(Graphic.Flag.tiny)) {
             Vector min = Vector.min(p1, p2).add(-SIZE, -SIZE);
             Vector max = Vector.max(p1, p2).add(SIZE, SIZE);
@@ -119,13 +126,37 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
             graphic.drawText(numPos, Integer.toString(bits), de.neemann.digital.draw.graphics.Orientation.LEFTBOTTOM, Style.WIRE_BITS);
         }
 
-        if (p1Dot || p2Dot) {
+        if (highLight != null && (p1Dot || p2Dot)) {
             Vector r = new Vector(style.getThickness(), style.getThickness());
             if (p1Dot)
                 graphic.drawCircle(p1.sub(r), p1.add(r), style);
             if (p2Dot)
                 graphic.drawCircle(p2.sub(r), p2.add(r), style);
         }
+    }
+
+    static Style getWireStyle(Color color, Value value) {
+        if (value != null)
+            return Style.getWireStyle(value);
+        if (color == null)
+            return Style.WIRE;
+        return Style.WIRE.deriveColor(color);
+    }
+
+    static Style getWireCoreStyle(Color color, Value value) {
+        if (value == null)
+            return null;
+        if (color == null)
+            color = Style.WIRE.getColor();
+        return Style.WIRE.deriveStyle(Style.WIRE.getThickness() / 2, true, color);
+    }
+
+    Style getCurrentDrawStyle() {
+        return getWireStyle(color, value);
+    }
+
+    Style getCoreDrawStyle() {
+        return getWireCoreStyle(color, value);
     }
 
     private Vector getRoundPos() {
@@ -302,6 +333,7 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
         return "Wire{"
                 + "p1=" + p1
                 + ", p2=" + p2
+                + (color != null ? ", color=" + color : "")
                 + '}';
     }
 
@@ -383,6 +415,22 @@ public class Wire implements Drawable, Movable, ObservableValueReader {
     public void setIsConnectedToSplitter(boolean isConnectedToSplitter) {
         this.isConnectedToSplitter = isConnectedToSplitter;
     }
+    /**
+     * @return the color of the wire
+     */
+    public Color getColor() {
+        return color;
+    }
 
+    /**
+     * Sets the color of the wire.
+     *
+     * @param color the color to set
+     * @return this wire instance
+     */
+    public Wire setColor(Color color) {
+        this.color = color;
+        return this;
+    }
     enum Orientation {horizontal, vertical, diagonal}
 }

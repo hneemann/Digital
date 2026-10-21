@@ -7,16 +7,18 @@ package de.neemann.digital.draw.elements;
 
 import de.neemann.digital.draw.graphics.Vector;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Merges colinear wires
  */
 public class WireMerger {
 
-    private HashMap<Integer, WireContainer> wireContainers;
+    private HashMap<Integer, ArrayList<WireContainer>> wireContainers;
     private OrientationHandler handler;
 
     /**
@@ -45,10 +47,20 @@ public class WireMerger {
      */
     public void add(Wire w) {
         SimpleWire sw = new SimpleWire(handler.getWireClass(w.p1), handler.getS(w.p1), handler.getS(w.p2));
-        WireContainer wc = wireContainers.get(sw.wireClass);
+        ArrayList<WireContainer> containers = wireContainers.get(sw.wireClass);
+        if (containers == null) {
+            containers = new ArrayList<>();
+            wireContainers.put(sw.wireClass, containers);
+        }
+        WireContainer wc = null;
+        for (WireContainer container : containers)
+            if (Objects.equals(container.color, w.getColor())) {
+                wc = container;
+                break;
+            }
         if (wc == null) {
-            wc = new WireContainer(sw.wireClass);
-            wireContainers.put(sw.wireClass, wc);
+            wc = new WireContainer(sw.wireClass, w.getColor());
+            containers.add(wc);
         }
         wc.add(sw);
     }
@@ -59,8 +71,9 @@ public class WireMerger {
      * @param wires the wires
      */
     public void addTo(ArrayList<Wire> wires) {
-        for (WireContainer wc : wireContainers.values()) {
-            wc.addTo(wires);
+        for (ArrayList<WireContainer> containers : wireContainers.values()) {
+            for (WireContainer wc : containers)
+                wc.addTo(wires);
         }
     }
 
@@ -72,9 +85,11 @@ public class WireMerger {
      */
     public void protectPoints(Collection<Vector> points) {
         for (Vector v : points) {
-            WireContainer wc = wireContainers.get(handler.getWireClass(v));
-            if (wc != null)    // is possible because diagonals are not included
-                wc.protect(handler.getS(v));
+            ArrayList<WireContainer> containers = wireContainers.get(handler.getWireClass(v));
+            if (containers != null) {    // is possible because diagonals are not included
+                for (WireContainer wc : containers)
+                    wc.protect(handler.getS(v));
+            }
         }
     }
 
@@ -164,10 +179,12 @@ public class WireMerger {
 
     private class WireContainer {
         private int wireClass;
+        private Color color;
         private ArrayList<SimpleWire> wires;
 
-        WireContainer(int wireClass) {
+        WireContainer(int wireClass, Color color) {
             this.wireClass = wireClass;
+            this.color = color;
             wires = new ArrayList<>();
         }
 
@@ -190,7 +207,7 @@ public class WireMerger {
 
         public void addTo(ArrayList<Wire> list) {
             for (SimpleWire sw : wires)
-                list.add(handler.toWire(sw));
+                list.add(handler.toWire(sw).setColor(color));
         }
 
         public void protect(int s) {

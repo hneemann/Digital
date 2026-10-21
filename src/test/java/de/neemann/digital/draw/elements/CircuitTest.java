@@ -12,9 +12,11 @@ import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.ROM;
 import de.neemann.digital.draw.library.ElementLibrary;
+import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.draw.shapes.ShapeFactory;
 import junit.framework.TestCase;
 
+import java.awt.Color;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -55,6 +57,28 @@ public class CircuitTest extends TestCase {
         // check input
         VisualElement in = c.getElements().get(1);
         assertEquals(0x8fff0000ffff0000L, in.getElementAttributes().get(Keys.INPUT_DEFAULT).getValue());
+    }
+
+    public void testWireColorSerialization() throws IOException {
+        Color color = new Color(12, 34, 56);
+        Circuit circuit = new Circuit();
+        circuit.add(new Wire(new Vector(0, 0), new Vector(10, 0)).setColor(color));
+        circuit.add(new Wire(new Vector(0, 10), new Vector(10, 10)));
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        circuit.save(out);
+        Circuit loaded = Circuit.loadCircuit(new ByteArrayInputStream(out.toByteArray()),
+                new ShapeFactory(new ElementLibrary()));
+
+        assertEquals(color, getWire(loaded, 0).getColor());
+        assertNull(getWire(loaded, 10).getColor());
+    }
+
+    private Wire getWire(Circuit circuit, int y) {
+        for (Wire wire : circuit.getWires())
+            if (wire.p1.y == y && wire.p2.y == y)
+                return wire;
+        return null;
     }
 
 }
