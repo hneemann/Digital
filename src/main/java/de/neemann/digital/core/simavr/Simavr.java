@@ -29,12 +29,16 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
- * The Simavr component
+ * The simavr component
  */
-public class Simavr extends Node implements Element {
+public final class Simavr extends Node implements Element {
     private static final Logger LOGGER = LoggerFactory.getLogger(Simavr.class);
 
+    /**
+     * The simavr MCU
+     */
     public enum Mcu {
+        //CHECKSTYLE.OFF: JavadocVariable|MethodParamPad
         at90usb162    ("AT90usb162",              0, 8, 8, 8),
         atmega48      ("ATmega48/48p/48pa",       0, 8, 7, 8),
         atmega8       ("ATmega8/8l",              0, 8, 7, 8),
@@ -69,18 +73,40 @@ public class Simavr extends Node implements Element {
         attiny45      ("ATtiny45",                0), // TODO
         attiny84      ("ATtiny84",                0), // TODO
         attiny85      ("ATtiny85",                0); // TODO
+        //CHECKSTYLE.ON: JavadocVariable|MethodParamPad
 
-        public static class Port {
+        /**
+         * One of the I/O ports of a simavr chip
+         */
+        public static final class Port {
+            /**
+             * The single upppercase character identifying the port
+             */
             public final char name;
+            /**
+             * The number of bits usable for I/O
+             */
             public final int bits;
 
+            /**
+             * Creates a new instance
+             *
+             * @param name a single upppercase character identifying the port
+             * @param bits the number of bits usable for I/O
+             */
             public Port(char name, int bits) {
                 this.name = name;
                 this.bits = bits;
             }
         }
 
+        /**
+         * The full name (and equivalent variants) of this MCU
+         */
         public final String description;
+        /**
+         * The I/O ports of this MCU, ordered by name
+         */
         public final List<Port> ports;
 
         Mcu(String description, int... portsBits) {
@@ -103,10 +129,13 @@ public class Simavr extends Node implements Element {
         }
     }
 
+    /**
+     * The simavr element description
+     */
     public static final ElementTypeDescription DESCRIPTION = new Description();
 
-    static class Description extends ElementTypeDescription {
-        public Description() {
+    private static final class Description extends ElementTypeDescription {
+        private Description() {
             super(Simavr.class);
             addAttribute(Keys.SIMAVR_MCU);
             addAttribute(Keys.SIMAVR_FIRMWARE_FILE_PATH);
@@ -134,33 +163,38 @@ public class Simavr extends Node implements Element {
         }
     }
 
-    static class Value {
-        public final int bits;
-        public final long bitMask;
-        public long value;
-        public long highZMask;
+    private static final class Value {
+        private final int bits;
+        private final long bitMask;
+        private long value;
+        private long highZMask;
 
-        Value(ObservableValue observable) {
+        private Value(ObservableValue observable) {
             bits = observable.getBits();
             bitMask = Bits.mask(bits);
             value = 0;
             highZMask = bitMask;
         }
 
-        void updateFrom(ObservableValue observable) {
+        private void updateFrom(ObservableValue observable) {
             value = observable.getValue();
             highZMask = observable.getHighZ();
         }
 
-        void applyTo(ObservableValue observable) {
+        private void applyTo(ObservableValue observable) {
             observable.set(value, highZMask);
         }
 
-        boolean getBool() {
+        private boolean getBool() {
             return value != 0;
         }
     }
 
+    /**
+     * Method called by the simavr library upon logging a message
+     * @param level The log level, one of {@code simavr.LOG_*}
+     * @param message The pre-formatted message string
+     */
     public static void onGlobalLogMessage(int level, String message) {
         message = "simavr: " + message.strip();
         if (level == simavr.LOG_OUTPUT) {
@@ -176,22 +210,22 @@ public class Simavr extends Node implements Element {
         }
     }
 
-    final Mcu mcu;
-    final String firmwareFilePath;
+    private final Mcu mcu;
+    private final String firmwareFilePath;
 
-    final int outputCount;
-    final ObservableValues outputs;
-    final Value[] outputValues;
+    private final int outputCount;
+    private final ObservableValues outputs;
+    private final Value[] outputValues;
 
-    final int inputCount;
-    ObservableValues inputs;
-    Value[] inputValues;
+    private final int inputCount;
+    private ObservableValues inputs;
+    private Value[] inputValues;
 
-    java_method_t onGlobalLogMessageMethod;
-    java_method_t onTxCharMethod;
-    avr_t avr;
-    int cpuState;
-    Queue<Long> txQueue;
+    private java_method_t onGlobalLogMessageMethod;
+    private java_method_t onTxCharMethod;
+    private avr_t avr;
+    private int cpuState;
+    private Queue<Long> txQueue;
 
     /**
      * Creates a new instance
@@ -278,13 +312,13 @@ public class Simavr extends Node implements Element {
         }
     }
 
-    void setupIfNeeded() {
+    private void setupIfNeeded() {
         if (avr == null) {
             setup();
         }
     }
 
-    void setup() {
+    private void setup() {
         System.err.println("setup()");
         try {
             LibSimAVR.load();
@@ -321,21 +355,26 @@ public class Simavr extends Node implements Element {
                 onTxCharMethod);
     }
 
+    /**
+     * Method called by the simavr library when the simulated AVR chip has
+     * transmitted a character over UART
+     * @param irqPtr the interrupt request that caused this function to be called
+     * @param value the character
+     */
     public void onTxChar(long irqPtr, long value) {
         avr_irq_t irq = new avr_irq_t(irqPtr, false);
         txQueue.add(value);
     }
 
-    void reset() {
+    private void reset() {
         System.err.println("reset()");
         setup();
     }
 
-    void runOneCycle() {
+    private void runOneCycle() {
         setupIfNeeded();
 
-        if (inputValues[0].getBool())
-        {
+        if (inputValues[0].getBool()) {
             reset();
             return;
         }
