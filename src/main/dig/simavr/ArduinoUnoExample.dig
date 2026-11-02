@@ -677,7 +677,8 @@
           <string>Description</string>
           <string>Break on:
 ↑ character
-↓ newline</string>
+↓ newline
+{{de TODO}}</string>
         </entry>
       </elementAttributes>
       <pos x="760" y="80"/>

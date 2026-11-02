@@ -37,7 +37,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>Reset</string>
+          <string>Reset
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -83,7 +84,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>TX Data (8-bit)</string>
+          <string>TX Data (8-bit)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -105,7 +107,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>TX Clock</string>
+          <string>TX Clock
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -133,7 +136,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D0 (not connected to internal UART RX)</string>
+          <string>D0 (not connected to internal UART RX)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -159,7 +163,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D1 (not connected to internal UART TX)</string>
+          <string>D1 (not connected to internal UART TX)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -185,7 +190,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D2</string>
+          <string>D2
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -211,7 +217,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D3</string>
+          <string>D3
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -237,7 +244,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D4</string>
+          <string>D4
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -263,7 +271,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D5</string>
+          <string>D5
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -289,7 +298,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D6</string>
+          <string>D6
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -315,7 +325,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D7</string>
+          <string>D7
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -355,7 +366,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D0 (not connected to internal UART RX)</string>
+          <string>D0 (not connected to internal UART RX)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -373,7 +385,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D1 (not connected to internal UART TX)</string>
+          <string>D1 (not connected to internal UART TX)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -391,7 +404,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D2</string>
+          <string>D2
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -409,7 +423,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D3</string>
+          <string>D3
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -427,7 +442,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D4</string>
+          <string>D4
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -445,7 +461,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D5</string>
+          <string>D5
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -463,7 +480,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D6</string>
+          <string>D6
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -481,7 +499,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D7</string>
+          <string>D7
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -509,7 +528,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D8 (ICP1)</string>
+          <string>D8 (ICP1)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -535,7 +555,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D9</string>
+          <string>D9
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -561,7 +582,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D10 (SPI SS)</string>
+          <string>D10 (SPI SS)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -587,7 +609,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D11 (SPI MOSI)</string>
+          <string>D11 (SPI MOSI)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -613,7 +636,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D12 (SPI MISO)</string>
+          <string>D12 (SPI MISO)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -639,7 +663,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D13 (SPI SCK, on-board LED)</string>
+          <string>D13 (SPI SCK, on-board LED)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -699,7 +724,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D8 (ICP1)</string>
+          <string>D8 (ICP1)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -717,7 +743,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D9</string>
+          <string>D9
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -735,7 +762,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D10 (SPI SS)</string>
+          <string>D10 (SPI SS)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -753,7 +781,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D11 (SPI MOSI)</string>
+          <string>D11 (SPI MOSI)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -771,7 +800,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D12 (SPI MISO)</string>
+          <string>D12 (SPI MISO)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -789,7 +819,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D13 (SPI SCK, on-board LED)</string>
+          <string>D13 (SPI SCK, on-board LED)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -821,7 +852,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D14/A0</string>
+          <string>D14/A0
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -847,7 +879,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D15/A1</string>
+          <string>D15/A1
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -873,7 +906,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D16/A2</string>
+          <string>D16/A2
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -899,7 +933,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D17/A3</string>
+          <string>D17/A3
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -925,7 +960,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D18/A4 (I²C SDA)</string>
+          <string>D18/A4 (I²C SDA)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -951,7 +987,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D19/A5 (I²C SCL)</string>
+          <string>D19/A5 (I²C SCL)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -996,7 +1033,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D14/A0</string>
+          <string>D14/A0
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1014,7 +1052,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D15/A1</string>
+          <string>D15/A1
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1032,7 +1071,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D16/A2</string>
+          <string>D16/A2
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1050,7 +1090,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D17/A3</string>
+          <string>D17/A3
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1068,7 +1109,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D18/A4 (I²C SDA)</string>
+          <string>D18/A4 (I²C SDA)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
@@ -1086,7 +1128,8 @@
         </entry>
         <entry>
           <string>Description</string>
-          <string>D19/A5 (I²C SCL)</string>
+          <string>D19/A5 (I²C SCL)
+{{de TODO}}</string>
         </entry>
         <entry>
           <string>Label</string>
