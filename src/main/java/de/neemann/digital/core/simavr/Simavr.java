@@ -52,23 +52,23 @@ public class Simavr extends Node implements Element {
         atmega644     ("ATmega644/644p",          0, 8, 8, 8, 8),
         atmega64m1    ("ATmega64m1",              0, 8, 8, 8, 3),
         atmega128     ("ATmega128/128L",          8, 8, 8, 8, 8, 8, 5),
-        atmega1280    ("ATmega1280",              0),
-        atmega1281    ("ATmega1281",              0),
-        atmega1284p   ("ATmega1284p/1284",        0),
-        atmega128rfa1 ("ATmega128rfa1",           0),
-        atmega128rfr2 ("ATmega128rfr2",           0),
+        atmega1280    ("ATmega1280",              0), // TODO
+        atmega1281    ("ATmega1281",              0), // TODO
+        atmega1284p   ("ATmega1284p/1284",        0), // TODO
+        atmega128rfa1 ("ATmega128rfa1",           0), // TODO
+        atmega128rfr2 ("ATmega128rfr2",           0), // TODO
         atmega169p    ("ATmega169p",              8, 8, 8, 8, 8, 8, 6),
-        atmega2560    ("ATmega2560",              0),
-        attiny13      ("ATtiny13/attiny13a",      0),
-        attiny2313    ("ATtiny2313/attiny2313v",  0),
-        attiny2313a   ("ATtiny2313a",             0),
-        attiny24      ("ATtiny24",                0),
-        attiny25      ("ATtiny25",                0),
-        attiny4313    ("ATtiny4313",              0),
-        attiny44      ("ATtiny44",                0),
-        attiny45      ("ATtiny45",                0),
-        attiny84      ("ATtiny84",                0),
-        attiny85      ("ATtiny85",                0);
+        atmega2560    ("ATmega2560",              0), // TODO
+        attiny13      ("ATtiny13/attiny13a",      0), // TODO
+        attiny2313    ("ATtiny2313/attiny2313v",  0), // TODO
+        attiny2313a   ("ATtiny2313a",             0), // TODO
+        attiny24      ("ATtiny24",                0), // TODO
+        attiny25      ("ATtiny25",                0), // TODO
+        attiny4313    ("ATtiny4313",              0), // TODO
+        attiny44      ("ATtiny44",                0), // TODO
+        attiny45      ("ATtiny45",                0), // TODO
+        attiny84      ("ATtiny84",                0), // TODO
+        attiny85      ("ATtiny85",                0); // TODO
 
         public static class Port {
             public final char name;
