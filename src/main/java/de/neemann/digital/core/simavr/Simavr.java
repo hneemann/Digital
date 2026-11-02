@@ -319,7 +319,6 @@ public final class Simavr extends Node implements Element {
     }
 
     private void setup() {
-        System.err.println("setup()");
         try {
             LibSimAVR.load();
         } catch (IOException e) {
@@ -367,7 +366,6 @@ public final class Simavr extends Node implements Element {
     }
 
     private void reset() {
-        System.err.println("reset()");
         setup();
     }
 
@@ -392,9 +390,12 @@ public final class Simavr extends Node implements Element {
         final int lastCpuState = cpuState;
         cpuState = simavr.avr_run(avr);
         if (cpuState != lastCpuState) {
+            System.err.format("cpuState = %s\n", cpuState);
             if (cpuState == simavr.cpu_Done) {
+                // TODO
                 System.err.println("cpuState = done");
             } else if (cpuState == simavr.cpu_Crashed) {
+                // TODO
                 System.err.println("cpuState = crashed");
             }
         }
