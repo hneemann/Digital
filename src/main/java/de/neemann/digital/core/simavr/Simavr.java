@@ -12,6 +12,7 @@ import be.jnms.simavr.swig.avr_t;
 import be.jnms.simavr.swig.elf_firmware_t;
 import be.jnms.simavr.swig.java_method_t;
 import be.jnms.simavr.swig.simavr;
+import be.jnms.simavr.swig.uint32_t_ptr;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.elements.PinException;
@@ -348,6 +349,12 @@ public final class Simavr extends Node implements Element {
 
         simavr.avr_init(avr);
         simavr.avr_load_firmware(avr, elf);
+
+        // Disable ansi-colored logging of all uart data
+        final uint32_t_ptr uart0FlagsPtr = new uint32_t_ptr();
+        simavr.avr_ioctl(avr, simavr.AVR_IOCTL_UART_GET_FLAGS((short) '0'), uart0FlagsPtr.asVoidPointer());
+        uart0FlagsPtr.assign(uart0FlagsPtr.value() & ~simavr.AVR_UART_FLAG_STDIO);
+        simavr.avr_ioctl(avr, simavr.AVR_IOCTL_UART_SET_FLAGS((short) '0'), uart0FlagsPtr.asVoidPointer());
 
         simavr.avr_irq_register_notify(
                 simavr.avr_io_getirq(avr, simavr.AVR_IOCTL_UART_GETIRQ((short) '0'), simavr.UART_IRQ_OUTPUT),
