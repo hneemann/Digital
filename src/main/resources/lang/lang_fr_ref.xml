@@ -936,6 +936,19 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_Diode_tt">Simplified bidirectional diode. It is used to implement a wired AND or a wired OR.
         This is a ideal diode: There is no voltage drop across a forward-biased diode.
     </string>
+    <string name="elem_Simavr">simavr</string>
+    <string name="elem_Simavr_tt">Generic AVR microcontroller based on simavr.</string>
+    <string name="elem_Simavr_pin_R">Reset</string>
+    <string name="elem_Simavr_pin_C">Clock</string>
+    <string name="elem_Simavr_pin_TxC">TX Clock</string>
+    <string name="elem_Simavr_pin_TxD">TX Data (8-bit)</string>
+    <string name="elem_Simavr_pin_PA">PortA</string>
+    <string name="elem_Simavr_pin_PB">PortB</string>
+    <string name="elem_Simavr_pin_PC">PortC</string>
+    <string name="elem_Simavr_pin_PD">PortD</string>
+    <string name="elem_Simavr_pin_PE">PortE</string>
+    <string name="elem_Simavr_pin_PF">PortF</string>
+    <string name="elem_Simavr_pin_PG">PortG</string>
     <string name="error">Error</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in component {1} is not a input or output</string>
     <string name="err_aSingleClockNecessary">A single clock component is necessary. All flip-flops must use this clock
@@ -1066,6 +1079,9 @@ In the file howTo.md you can find more details about translations.
     <string name="err_hdlMultipleOutputsConnectedToNet_N_N_N">Several outputs are connected to each other.
         This type of interconnection is not supported for HDL export. ({0}, {1}, {2}).
     </string>
+    <string name="err_simavr_load_lib_failed">Failed to load the simavr native library. Your platform might not be
+        supported. There is built-in support for the following platforms:</string>
+    <string name="err_simavr_read_elf_failed">Failed to read ''{0}'' as a valid ELF file</string>
     <string name="err_unnamedNet">unnamed net</string>
     <string name="err_toManyVars">Too many variables!</string>
     <string name="err_invalidExpression">Invalid expression!</string>
@@ -1444,6 +1460,11 @@ In the file howTo.md you can find more details about translations.
     </string>
     <string name="key_maxValue">Maximum Value</string>
     <string name="key_maxValue_tt">If a zero is entered, the maximum possible value is used (all bits are one).</string>
+    <string name="key_simavrMcu">MCU</string>
+    <string name="key_simavrMcu_tt">The simavr MCU.</string>
+    <string name="key_simavrFirmwareFilePath">Firmware</string>
+    <string name="key_simavrFirmwareFilePath_tt">Path to the ELF firmware file for the simulated AVR chip.
+        Firmware must have been compiled for the the selected MCU.</string>
     <string name="key_dipDefault">Output is High</string>
     <string name="key_dipDefault_tt">The default output value of the DIP switch when the simulation starts.</string>
     <string name="key_macMouse">Use macOS mouse clicks.</string>
