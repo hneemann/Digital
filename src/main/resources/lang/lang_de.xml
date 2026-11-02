@@ -1032,6 +1032,20 @@
         Kann verwendet werden, um ein "Wired AND" oder ein "Wired OR" zu implementieren.
         Es handelt sich um eine ideale Diode: In Durchlassrichtung gibt es keinen Spannungabfall über der Diode.</string>
 
+    <string name="elem_Simavr">simavr</string>
+    <string name="elem_Simavr_tt">TODO</string>
+    <string name="elem_Simavr_pin_R">TODO</string>
+    <string name="elem_Simavr_pin_C">TODO</string>
+    <string name="elem_Simavr_pin_TxC">TODO</string>
+    <string name="elem_Simavr_pin_TxD">TODO</string>
+    <string name="elem_Simavr_pin_PA">TODO</string>
+    <string name="elem_Simavr_pin_PB">TODO</string>
+    <string name="elem_Simavr_pin_PC">TODO</string>
+    <string name="elem_Simavr_pin_PD">TODO</string>
+    <string name="elem_Simavr_pin_PE">TODO</string>
+    <string name="elem_Simavr_pin_PF">TODO</string>
+    <string name="elem_Simavr_pin_PG">TODO</string>
+
 
     <string name="error">Fehler</string>
     <string name="err_N_isNotInputOrOutput">Pin {0} in Element {1} ist weder Eingang noch Ausgang</string>
@@ -1145,6 +1159,8 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="err_hdlTestCaseHasGenericCode">Testfälle mit generischer Parametrisierung werden im HDL-Export nicht
         unterstützt!
     </string>
+    <string name="err_simavr_load_lib_failed">TODO</string>
+    <string name="err_simavr_read_elf_failed">TODO {0}</string>
     <string name="err_unnamedNet">unbenanntes Netz</string>
     <string name="err_toManyVars">Zu viele Variablen!</string>
     <string name="err_invalidExpression">Ungültiger Ausdruck!</string>
@@ -1529,6 +1545,11 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="key_maxValue_tt">Wird hier eine Null eingetragen, wird der maximal mögliche Wert verwendet (Alle Bits
         sind Eins).
     </string>
+
+    <string name="key_simavrMcu">MCU</string>
+    <string name="key_simavrMcu_tt">TODO</string>
+    <string name="key_simavrFirmwareFilePath">Firmware</string>
+    <string name="key_simavrFirmwareFilePath_tt">TODO</string>
 
     <string name="key_dipDefault">Ausgabe ist High</string>
     <string name="key_dipDefault_tt">Der Vorgabewert des DIP-Schalters, wenn die Simulation gestartet wird.</string>
@@ -2628,8 +2649,4 @@ Sie dürfen jedoch nicht oberhalb der Kopfzeile mit den Signalnamen verwendet we
     <string name="tutorialNotNeeded">
         Tutorial überspringen
     </string>
-    <string name="elem_Simavr">simavr</string>
-    <string name="elem_Simavr_tt">Generischer AVR-Mikrocontroller auf Basis von simavr</string>
-    <string name="key_simavrMcu">MCU</string>
-    <string name="key_simavrFirmwareFilePath">Firmware</string>
 </resources>
