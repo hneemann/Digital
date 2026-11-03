@@ -16,6 +16,7 @@ import be.jnms.simavr.swig.uint32_t_ptr;
 import de.neemann.digital.core.*;
 import de.neemann.digital.core.element.*;
 import de.neemann.digital.draw.elements.PinException;
+import de.neemann.digital.lang.Lang;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -323,7 +324,11 @@ public final class Simavr extends Node implements Element {
         try {
             LibSimAVR.load();
         } catch (IOException e) {
-            throw new NodeException("Failed to load the simavr native library", e);
+            String message = Lang.get("err_simavr_load_lib_failed") + "\r\n"
+                    + LibSimAVR.listSupportedPlatforms()
+                            .stream().map(s -> "- %s".formatted(s))
+                            .collect(Collectors.joining("\r\n"));
+            throw new NodeException(message, e);
         }
 
         try {
@@ -337,7 +342,7 @@ public final class Simavr extends Node implements Element {
 
         elf_firmware_t elf = new elf_firmware_t();
         if (simavr.elf_read_firmware(firmwareFilePath, elf) != 0) {
-            throw new NodeException("Failed to read '%s' as a valid ELF file".formatted(firmwareFilePath));
+            throw new NodeException(Lang.get("err_simavr_read_elf_failed", firmwareFilePath));
         }
 
         avr = simavr.avr_make_mcu_by_name(mcu.name());
