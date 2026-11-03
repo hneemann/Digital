@@ -394,14 +394,7 @@ public final class Simavr extends Node implements Element {
         final int lastCpuState = cpuState;
         cpuState = simavr.avr_run(avr);
         if (cpuState != lastCpuState) {
-            System.err.format("cpuState = %s\n", cpuState);
-            if (cpuState == simavr.cpu_Done) {
-                // TODO
-                System.err.println("cpuState = done");
-            } else if (cpuState == simavr.cpu_Crashed) {
-                // TODO
-                System.err.println("cpuState = crashed");
-            }
+            LOGGER.info("cpuState = %s".formatted(cpuStateToString(cpuState)));
         }
 
         final Value txC = outputValues[0];
@@ -427,5 +420,17 @@ public final class Simavr extends Node implements Element {
             value.value = state.getPort() & value.bitMask;
             value.highZMask = ~state.getDdr() & value.bitMask;
         }
+    }
+
+    private static String cpuStateToString(int cpuState) {
+        if      (cpuState == simavr.cpu_Limbo)    return "Limbo";
+        else if (cpuState == simavr.cpu_Stopped)  return "Stopped";
+        else if (cpuState == simavr.cpu_Running)  return "Running";
+        else if (cpuState == simavr.cpu_Sleeping) return "Sleeping";
+        else if (cpuState == simavr.cpu_Step)     return "Step";
+        else if (cpuState == simavr.cpu_StepDone) return "StepDone";
+        else if (cpuState == simavr.cpu_Done)     return "Done";
+        else if (cpuState == simavr.cpu_Crashed)  return "Crashed";
+        else return "unknown";
     }
 }
