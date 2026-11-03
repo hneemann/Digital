@@ -313,25 +313,23 @@ public final class Simavr extends Node implements Element {
         }
     }
 
-    private void setupIfNeeded() {
+    private void setupIfNeeded() throws NodeException {
         if (avr == null) {
             setup();
         }
     }
 
-    private void setup() {
+    private void setup() throws NodeException {
         try {
             LibSimAVR.load();
         } catch (IOException e) {
-            // TODO
-            throw new IllegalStateException(e);
+            throw new NodeException("Failed to load the simavr native library", e);
         }
 
         try {
             this.onGlobalLogMessageMethod = new java_method_t(getClass().getMethod("onGlobalLogMessage", int.class, String.class));
             this.onTxCharMethod = new java_method_t(this, getClass().getMethod("onTxChar", long.class, long.class));
         } catch (NoSuchMethodException e) {
-            // TODO
             throw new IllegalStateException(e);
         }
 
@@ -339,8 +337,7 @@ public final class Simavr extends Node implements Element {
 
         elf_firmware_t elf = new elf_firmware_t();
         if (simavr.elf_read_firmware(firmwareFilePath, elf) != 0) {
-            // TODO
-            throw new IllegalArgumentException("failed to read " + firmwareFilePath);
+            throw new NodeException("Failed to read '%s' as a valid ELF file".formatted(firmwareFilePath));
         }
 
         avr = simavr.avr_make_mcu_by_name(mcu.name());
@@ -372,11 +369,11 @@ public final class Simavr extends Node implements Element {
         txQueue.add(value);
     }
 
-    private void reset() {
+    private void reset() throws NodeException {
         setup();
     }
 
-    private void runOneCycle() {
+    private void runOneCycle() throws NodeException {
         setupIfNeeded();
 
         if (inputValues[0].getBool()) {
