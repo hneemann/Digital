@@ -96,7 +96,7 @@
           <int>8</int>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="240"/>
+      <pos x="1180" y="240"/>
     </visualElement>
     <visualElement>
       <elementName>Out</elementName>
@@ -115,7 +115,7 @@
           <string>TxC</string>
         </entry>
       </elementAttributes>
-      <pos x="1160" y="260"/>
+      <pos x="1180" y="260"/>
     </visualElement>
     <visualElement>
       <elementName>Splitter</elementName>
@@ -1138,6 +1138,21 @@
       </elementAttributes>
       <pos x="1000" y="340"/>
     </visualElement>
+    <visualElement>
+      <elementName>PullDown</elementName>
+      <elementAttributes/>
+      <pos x="1140" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>PullDown</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="1160" y="280"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -1194,7 +1209,7 @@
     </wire>
     <wire>
       <p1 x="1120" y="260"/>
-      <p2 x="1160" y="260"/>
+      <p2 x="1140" y="260"/>
     </wire>
     <wire>
       <p1 x="260" y="260"/>
@@ -1207,6 +1222,10 @@
     <wire>
       <p1 x="880" y="260"/>
       <p2 x="900" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="260"/>
+      <p2 x="1180" y="260"/>
     </wire>
     <wire>
       <p1 x="180" y="200"/>
@@ -1317,6 +1336,10 @@
       <p2 x="640" y="240"/>
     </wire>
     <wire>
+      <p1 x="1160" y="240"/>
+      <p2 x="1180" y="240"/>
+    </wire>
+    <wire>
       <p1 x="320" y="240"/>
       <p2 x="340" y="240"/>
     </wire>
@@ -1423,6 +1446,14 @@
     <wire>
       <p1 x="1140" y="140"/>
       <p2 x="1140" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="1140" y="260"/>
+      <p2 x="1140" y="280"/>
+    </wire>
+    <wire>
+      <p1 x="1160" y="240"/>
+      <p2 x="1160" y="280"/>
     </wire>
     <wire>
       <p1 x="940" y="180"/>
