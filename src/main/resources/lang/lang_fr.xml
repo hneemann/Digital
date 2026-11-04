@@ -1005,6 +1005,19 @@ In the file howTo.md you can find more details about translations.
     <string name="elem_Diode_tt">Une diode bidirectionnelle simplifiée. Peut être utilisée pour implanter un ET câblé ou
         un OU câblé.
     </string>
+    <string name="elem_Simavr">Simavr</string>
+    <string name="elem_Simavr_tt">AVR microcontrôleur générique basé sur simavr</string>
+    <string name="elem_Simavr_pin_R">Réinitialisation</string>
+    <string name="elem_Simavr_pin_C">Signal d'horloge</string>
+    <string name="elem_Simavr_pin_TxC">TX Signal d'horloge</string>
+    <string name="elem_Simavr_pin_TxD">TX Données 8-bit</string>
+    <string name="elem_Simavr_pin_PA">PortA</string>
+    <string name="elem_Simavr_pin_PB">PortB</string>
+    <string name="elem_Simavr_pin_PC">PortC</string>
+    <string name="elem_Simavr_pin_PD">PortD</string>
+    <string name="elem_Simavr_pin_PE">PortE</string>
+    <string name="elem_Simavr_pin_PF">PortF</string>
+    <string name="elem_Simavr_pin_PG">PortG</string>
     <string name="error">Erreur</string>
     <string name="err_N_isNotInputOrOutput">La broche {0} du composant {1} n''est pas une entrée ou une sortie
     </string>
@@ -1147,6 +1160,9 @@ In the file howTo.md you can find more details about translations.
     <string name="err_hdlMultipleOutputsConnectedToNet_N_N_N">Plusieurs sorties sont connectées une à l''autre.
         Ce type d''interconnexion n''est pas pris en charge pour l''exportation HDL. ({0}, {1}, {2}).
     </string>
+    <string name="err_simavr_load_lib_failed">Échoué à charger la bibliothèque natif simavr. Votre plateforme n'est
+        peut-être pas prise en charge. Il y a prise en charge intégré pour les plateformes suivantes:</string>
+    <string name="err_simavr_read_elf_failed">Échoué à lire ''{0}'' comme un ficher ELF valide</string>
     <string name="err_unnamedNet">réseau sans nom</string>
     <string name="err_toManyVars">Trop de variables!</string>
     <string name="err_invalidExpression">Expression invalide!</string>
@@ -1579,6 +1595,11 @@ In the file howTo.md you can find more details about translations.
     </string>
     <string name="key_maxValue">Valeur maximale</string>
     <string name="key_maxValue_tt">Si un zéro est entré, la valeur maximale est utilisée (tous les bits à un).</string>
+    <string name="key_simavrMcu">MCU</string>
+    <string name="key_simavrMcu_tt">Le MCU de simavr.</string>
+    <string name="key_simavrFirmwareFilePath">Firmware</string>
+    <string name="key_simavrFirmwareFilePath_tt">Le chemin de le fichier ELF Firmware pour le chip AVR simulée.
+        Firmware doit être compilé pour le MCU choisi.</string>
     <string name="key_dipDefault">Sortie haute</string>
     <string name="key_dipDefault_tt">La valeur par défaut de l'interrupteur DIP lorsque la simulation débute.</string>
     <string name="key_macMouse">Utiliser les clics de souris macOS.</string>
