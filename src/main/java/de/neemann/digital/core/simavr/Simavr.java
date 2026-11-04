@@ -41,40 +41,40 @@ public final class Simavr extends Node implements Element {
      */
     public enum Mcu {
         //CHECKSTYLE.OFF: JavadocVariable|MethodParamPad
-        at90usb162    ("AT90usb162",              0, 8, 8, 8),
-        atmega48      ("ATmega48/48p/48pa",       0, 8, 7, 8),
-        atmega8       ("ATmega8/8l",              0, 8, 7, 8),
-        atmega88      ("ATmega88/88p/88pa",       0, 8, 7, 8),
-        atmega16      ("ATmega16",                0, 8, 7, 8),
-        atmega164     ("ATmega164/164p/164pa",    8, 8, 8, 8),
-        atmega168     ("ATmega168/168p/168pa",    0, 8, 7, 8),
-        atmega16m1    ("ATmega16m1",              0, 8, 8, 8, 3),
-        atmega32      ("ATmega32",                0, 8, 7, 8),
-        atmega324     ("ATmega324/324p",          8, 8, 8, 8),
-        atmega324a    ("ATmega324a/324pa",        8, 8, 8, 8),
-        atmega328     ("ATmega328/328p",          0, 8, 7, 8),
-        atmega328pb   ("ATmega328pb",             0, 8, 7, 8, 4),
-        atmega32u4    ("ATmega32u4",              8, 8, 8, 8, 8),
-        atmega644     ("ATmega644/644p",          0, 8, 8, 8, 8),
-        atmega64m1    ("ATmega64m1",              0, 8, 8, 8, 3),
-        atmega128     ("ATmega128/128L",          8, 8, 8, 8, 8, 8, 5),
-        atmega1280    ("ATmega1280",              0), // TODO
-        atmega1281    ("ATmega1281",              0), // TODO
-        atmega1284p   ("ATmega1284p/1284",        0), // TODO
-        atmega128rfa1 ("ATmega128rfa1",           0), // TODO
-        atmega128rfr2 ("ATmega128rfr2",           0), // TODO
-        atmega169p    ("ATmega169p",              8, 8, 8, 8, 8, 8, 6),
-        atmega2560    ("ATmega2560",              0), // TODO
-        attiny13      ("ATtiny13/attiny13a",      0), // TODO
-        attiny2313    ("ATtiny2313/attiny2313v",  0), // TODO
-        attiny2313a   ("ATtiny2313a",             0), // TODO
-        attiny24      ("ATtiny24",                0), // TODO
-        attiny25      ("ATtiny25",                0), // TODO
-        attiny4313    ("ATtiny4313",              0), // TODO
-        attiny44      ("ATtiny44",                0), // TODO
-        attiny45      ("ATtiny45",                0), // TODO
-        attiny84      ("ATtiny84",                0), // TODO
-        attiny85      ("ATtiny85",                0); // TODO
+        at90usb162    ("AT90usb162",           0, 8, 8, 8),
+        atmega48      ("ATmega48/48p/48pa",    0, 8, 7, 8),
+        atmega8       ("ATmega8/8l",           0, 8, 7, 8),
+        atmega88      ("ATmega88/88p/88pa",    0, 8, 7, 8),
+        atmega16      ("ATmega16",             0, 8, 7, 8),
+        atmega164     ("ATmega164/164p/164pa", 8, 8, 8, 8),
+        atmega168     ("ATmega168/168p/168pa", 0, 8, 7, 8),
+        atmega16m1    ("ATmega16m1",           0, 8, 8, 8, 3),
+        atmega32      ("ATmega32",             0, 8, 7, 8),
+        atmega324     ("ATmega324/324p",       8, 8, 8, 8),
+        atmega324a    ("ATmega324a/324pa",     8, 8, 8, 8),
+        atmega328     ("ATmega328/328p",       0, 8, 7, 8),
+        atmega328pb   ("ATmega328pb",          0, 8, 7, 8, 4),
+        atmega32u4    ("ATmega32u4",           8, 8, 8, 8, 8),
+        atmega644     ("ATmega644/644p",       0, 8, 8, 8, 8),
+        atmega64m1    ("ATmega64m1",           0, 8, 8, 8, 3),
+        atmega128     ("ATmega128/128L",       8, 8, 8, 8, 8, 8, 5),
+        atmega1280    ("ATmega1280",           8, 8, 8, 8, 8, 8, 6, 8, 0, 8, 8, 8),
+        atmega1281    ("ATmega1281",           8, 8, 8, 8, 8, 8, 6),
+        atmega1284p   ("ATmega1284p/1284",     8, 8, 8, 8),
+        atmega128rfa1 ("ATmega128rfa1",        0, 8, 0, 8, 8, 8, 6),
+        atmega128rfr2 ("ATmega128rfr2",        0, 8, 0, 8, 8, 8, 6),
+        atmega169p    ("ATmega169p",           8, 8, 8, 8, 8, 8, 6),
+        atmega2560    ("ATmega2560",           8, 8, 8, 8, 8, 8, 6, 8, 0, 8, 8, 8),
+        attiny13      ("ATtiny13/13a",         0, 6),
+        attiny2313    ("ATtiny2313/2313v",     3, 8, 0, 7),
+        attiny2313a   ("ATtiny2313a",          3, 8, 0, 7),
+        attiny24      ("ATtiny24",             8, 4),
+        attiny25      ("ATtiny25",             0, 6),
+        attiny4313    ("ATtiny4313",           3, 8, 0, 7),
+        attiny44      ("ATtiny44",             8, 4),
+        attiny45      ("ATtiny45",             0, 6),
+        attiny84      ("ATtiny84",             8, 4),
+        attiny85      ("ATtiny85",             0, 6);
         //CHECKSTYLE.ON: JavadocVariable|MethodParamPad
 
         /**
