@@ -1,0 +1,92 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Info.plist of the macOS app bundle.
+  jpackage uses this file instead of its built-in template (see build-dmg.sh, option
+  resource-dir) and replaces the DEPLOY_* placeholders. The DIGITAL_* placeholders are
+  replaced by build-dmg.sh: the version, because jpackage rejects versions starting with
+  zero like 0.31, and the name of the document type, which is "Digital Circuit".
+  Because the file is complete before jpackage signs the bundle, the bundle must not be
+  modified afterwards.
+  Differences to the jpackage template: minimum macOS version 11.0 (required by the
+  bundled JDK), *.dig document type, no microphone usage description.
+  The document type conforms to public.xml, which is not in the macOS list of "safe"
+  types, so browsers do not open downloaded *.dig files automatically.
+-->
+<plist version="1.0">
+ <dict>
+  <key>LSMinimumSystemVersion</key>
+  <string>11.0</string>
+  <key>CFBundleDevelopmentRegion</key>
+  <string>English</string>
+  <key>CFBundleAllowMixedLocalizations</key>
+  <true/>
+  <key>CFBundleExecutable</key>
+  <string>DEPLOY_LAUNCHER_NAME</string>
+  <key>CFBundleIconFile</key>
+  <string>DEPLOY_ICON_FILE</string>
+  <key>CFBundleIdentifier</key>
+  <string>DEPLOY_BUNDLE_IDENTIFIER</string>
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>6.0</string>
+  <key>CFBundleName</key>
+  <string>DEPLOY_BUNDLE_NAME</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>CFBundleShortVersionString</key>
+  <string>DIGITAL_VERSION</string>
+  <key>CFBundleSignature</key>
+  <string>????</string>
+  <key>LSApplicationCategoryType</key>
+  <string>public.app-category.education</string>
+  <key>CFBundleVersion</key>
+  <string>DIGITAL_VERSION</string>
+  <key>NSHumanReadableCopyright</key>
+  <string>DEPLOY_BUNDLE_COPYRIGHT</string>
+  <key>NSHighResolutionCapable</key>
+  <true/>
+  <key>CFBundleDocumentTypes</key>
+  <array>
+   <dict>
+    <key>CFBundleTypeName</key>
+    <string>DIGITAL_DOCUMENT_TYPE</string>
+    <key>CFBundleTypeRole</key>
+    <string>Editor</string>
+    <key>LSHandlerRank</key>
+    <string>Owner</string>
+    <key>LSItemContentTypes</key>
+    <array>
+     <string>de.neemann.digital.dig</string>
+    </array>
+    <key>CFBundleTypeIconFile</key>
+    <string>digital-doc.icns</string>
+   </dict>
+  </array>
+  <key>UTExportedTypeDeclarations</key>
+  <array>
+   <dict>
+    <key>UTTypeIdentifier</key>
+    <string>de.neemann.digital.dig</string>
+    <key>UTTypeDescription</key>
+    <string>DIGITAL_DOCUMENT_TYPE</string>
+    <key>UTTypeConformsTo</key>
+    <array>
+     <string>public.xml</string>
+    </array>
+    <key>UTTypeIconFile</key>
+    <string>digital-doc.icns</string>
+    <key>UTTypeTagSpecification</key>
+    <dict>
+     <key>public.filename-extension</key>
+     <array>
+      <string>dig</string>
+     </array>
+     <key>public.mime-type</key>
+     <array>
+      <string>text/x-digital</string>
+     </array>
+    </dict>
+   </dict>
+  </array>
+ </dict>
+</plist>
