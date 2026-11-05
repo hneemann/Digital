@@ -43,6 +43,11 @@ contains `jpackage`. The published disk images are built with Eclipse Temurin 21
 and checksums. All timestamps are taken from the commit, so building the same commit with
 the same JDK build on the same macOS version creates an identical `Digital.app`.
 
+`test-app.sh <dmg> <folder>` starts the app from a disk image: it checks the content and
+the signature, runs `digital test` and `digital svg` and opens a circuit in the simulator
+with the same event as a double click in the Finder. The GitHub workflow runs it for both
+disk images on the processor type they were built for and keeps a screenshot.
+
 How the app is created:
 
 * `jpackage` creates `Digital.app` from `target/Digital.jar` and a Java runtime which
@@ -60,10 +65,21 @@ How the app is created:
 * `Digital.icns` and `digital-doc.icns` are the macOS app and document icons.
   Their sources are `Digital.svg` and `digital-doc.svg` in this folder.
 
+## Checking the origin of a disk image
+
+The disk images built by the GitHub workflow `.github/workflows/macos-app.yml` come with
+a signed build provenance attestation. The ad-hoc signature of the app does not show who
+signed it, but this command shows the repository, workflow and commit a disk image was
+built from, and that it was built on a GitHub runner from the release tag:
+
+    gh attestation verify Digital-<version>-macOS-<arch>.dmg --repo hneemann/Digital \
+        --signer-workflow hneemann/Digital/.github/workflows/macos-app.yml \
+        --source-ref refs/tags/v<version> --deny-self-hosted-runners
+
 ## Credits
 
 The macOS app goes back to Lorenzo Federici
 ([LoreFederici/Digital](https://github.com/LoreFederici/Digital)), who created the app
 bundle with Finder support and the app and document icons and proposed the `digital`
-command. Diego Marini reworked the build and the Finder support and implemented the
-`digital` command.
+command. Diego Marini reworked the build and the Finder support, implemented the
+`digital` command and added the GitHub workflow.
