@@ -2180,6 +2180,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         if (Screen.isMac()) {
             setMacCopyPasteTo(UIManager.get("TextField.focusInputMap"));
             setMacCopyPasteTo(UIManager.get("TextArea.focusInputMap"));
+            MacOSOpenFilesHandler.register();
         }
 
         File file = null;
@@ -2201,6 +2202,12 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
             if (file != null)
                 builder.setFileToOpen(file);
             SwingUtilities.invokeLater(() -> {
+                if (Screen.isMac() && builder.fileToOpen == null) {
+                    // a circuit double-clicked in the macOS Finder has started the application
+                    File circuit = MacOSOpenFilesHandler.takePendingCircuit();
+                    if (circuit != null)
+                        builder.setFileToOpen(circuit);
+                }
                 final boolean tutorial = (builder.fileToOpen == null) && Settings.getInstance().getAttributes().get(Keys.SETTINGS_SHOW_TUTORIAL);
                 if (tutorial) {
                     LOGGER.debug("set empty circuit to start tutorial");
@@ -2224,6 +2231,8 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                     new InitialTutorial(main).setVisible(true);
                 }
 
+                if (Screen.isMac())
+                    MacOSOpenFilesHandler.setMainWindow(main, builder.fileToOpen == null);
                 CheckForNewRelease.showReleaseDialog(main);
             });
         }

@@ -1,0 +1,81 @@
+# Builds the macOS disk images (Apple Silicon and Intel) with distribution/macOS/build-dmg.sh
+# and creates a signed build provenance attestation for them. Everybody can then check
+# that a DMG was built by this workflow from the sources of this repository:
+#
+#   gh attestation verify Digital-<version>-macOS-<arch>.dmg --repo hneemann/Digital
+#
+# See distribution/macOS/README.md. This workflow is independent of the other builds.
+name: macOS app
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'distribution/macOS/**'
+      - '.github/workflows/macos-app.yml'
+      - 'src/main/java/de/neemann/digital/gui/MacOSOpenFilesHandler.java'
+
+permissions:
+  contents: read
+
+jobs:
+  dmg:
+    name: DMG ${{ matrix.arch }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            arch: arm64
+          - runner: macos-15-intel
+            arch: x86_64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      id-token: write      # needed to sign the attestation
+      attestations: write  # needed to store the attestation
+    steps:
+      # actions are pinned to commits, the comment shows the version
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0  # the tags are needed to determine the version
+          persist-credentials: false
+
+      # The JDK version is part of the build recipe: building the same commit with the
+      # same JDK build on the same macOS version creates an identical Digital.app.
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '21.0.13+9'
+          verify-signature: true
+
+      - name: Build
+        run: distribution/macOS/build-dmg.sh
+
+      # Starts the app on the processor type it was built for, which is the only test
+      # of the Intel build without an Intel Mac. A DMG failing this test is not published.
+      - name: Test
+        run: distribution/macOS/test-app.sh target/macos/*.dmg target/macos-test
+
+      - name: Attest build provenance
+        # not possible for pull requests from forks, they get no id-token
+        if: github.event_name != 'pull_request'
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: target/macos/*.dmg
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: Digital-macOS-${{ matrix.arch }}
+          path: target/macos/
+          if-no-files-found: error
+
+      # the screenshot and the output of the simulator, also if the test has failed
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: Digital-macOS-${{ matrix.arch }}-test
+          path: target/macos-test/
