@@ -155,6 +155,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
     private State runModelMicroState;
     private JComponent componentOnPane;
     private LibraryTreeModel treeModel;
+    private JCheckBoxMenuItem darkModeMenuItem;
 
     /**
      * Creates a new instance
@@ -434,6 +435,14 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         presentationMode.addActionListener(actionEvent -> circuitComponent.setPresentationMode(presentationMode.isSelected()));
         presentationMode.setAccelerator(KeyStroke.getKeyStroke("F4"));
 
+        darkModeMenuItem = new JCheckBoxMenuItem(Lang.get("menu_darkMode"));
+        darkModeMenuItem.setSelected(Theme.isDarkSchemeSelected());
+        darkModeMenuItem.setToolTipText(Lang.get("menu_darkMode_tt"));
+        darkModeMenuItem.addActionListener(actionEvent -> {
+            Theme.setDarkMode(darkModeMenuItem.isSelected());
+            circuitComponent.graphicHasChanged();
+        });
+
         ToolTipAction tutorial = new ToolTipAction(Lang.get("menu_tutorial")) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -472,6 +481,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         view.addSeparator();
         view.add(treeCheckBox);
         view.add(presentationMode);
+        view.add(darkModeMenuItem);
         view.addSeparator();
         view.add(tutorial.createJMenuItem());
         view.addSeparator();
@@ -853,6 +863,9 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
                         circuitComponent.graphicHasChanged();
 
                     Settings.getInstance().getAttributes().getValuesFrom(modified);
+                    Theme.syncSwingThemeToColorScheme();
+                    if (darkModeMenuItem != null)
+                        darkModeMenuItem.setSelected(Theme.isDarkSchemeSelected());
                 }
             }
         }.setToolTip(Lang.get("menu_editSettings_tt"));
@@ -2174,6 +2187,7 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         } catch (ClassNotFoundException | InstantiationException | UnsupportedLookAndFeelException | IllegalAccessException e) {
             e.printStackTrace();
         }
+        Theme.applyFromSettings();
         ToolTipManager.sharedInstance().setDismissDelay(10000);
         URL.setURLStreamHandlerFactory(ElementHelpDialog.createURLStreamHandlerFactory());
 
