@@ -9,6 +9,7 @@ import de.neemann.digital.draw.graphics.Vector;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 
 /**
  * Used to reduce the wires found in the circuit.
@@ -81,7 +82,7 @@ public class WireConsistencyChecker {
 
     private boolean contains(ArrayList<Wire> list, Wire wire) {
         for (Wire w : list)
-            if (w.equalsContent(wire))
+            if (w.equalsContent(wire) && Objects.equals(w.getColor(), wire.getColor()))
                 return true;
         return false;
     }

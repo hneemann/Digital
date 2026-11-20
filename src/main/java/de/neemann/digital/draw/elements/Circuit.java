@@ -64,6 +64,7 @@ public class Circuit implements Copyable<Circuit> {
     private ArrayList<Wire> wires;
     private List<String> measurementOrdering;
     private transient boolean dotsPresent = false;
+    private transient DotCreator dotCreator;
     private transient File origin;
 
     /**
@@ -302,7 +303,8 @@ public class Circuit implements Copyable<Circuit> {
      */
     public void drawTo(Graphic graphic, Collection<Drawable> highLighted, Style highlight, SyncAccess modelSync, boolean presentationMode) {
         if (!dotsPresent) {
-            new DotCreator(wires).applyDots();
+            dotCreator = new DotCreator(wires);
+            dotCreator.applyDots();
             dotsPresent = true;
         }
 
@@ -318,6 +320,7 @@ public class Circuit implements Copyable<Circuit> {
         graphic.openGroup();
         for (Wire w : wires)
             w.drawTo(graphic, highLighted.contains(w) ? highlight : null);
+        dotCreator.drawTo(graphic, highLighted);
         graphic.closeGroup();
         for (VisualElement ve : visualElements) {
             if (!presentationMode || !hideInPresentationMode(ve)) {
@@ -354,7 +357,6 @@ public class Circuit implements Copyable<Circuit> {
     public Circuit add(Wire newWire) {
         if (newWire.p1.equals(newWire.p2))
             return null;
-
         wires.add(newWire);
         WireConsistencyChecker checker = new WireConsistencyChecker(wires);
         wires = checker.check();

@@ -156,6 +156,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     private NetList toolTipNetList;
     private String lastUsedTunnelName;
     private boolean presentationMode;
+    private Color wireColor;
 
     /**
      * Creates a new instance
@@ -533,6 +534,27 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         } catch (ModifyException e) {
             throw new RuntimeException("internal error in modify", e);
         }
+    }
+
+    /**
+     * Sets the color used for newly drawn wires. A null color keeps the default wire style.
+     *
+     * @param color the selected color
+     */
+    public void setWireColor(Color color) {
+        wireColor = color;
+        repaint();
+    }
+
+    /**
+     * @return the color used for newly drawn wires, or null for the default wire style
+     */
+    public Color getWireColor() {
+        return wireColor;
+    }
+
+    private Wire createWire(Vector p1, Vector p2) {
+        return new Wire(p1, p2).setColor(wireColor);
     }
 
     /**
@@ -1966,7 +1988,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 return;
         }
         if (found != null && PinDescription.Direction.isInOut(p.getDirection(), found.getDirection())) {
-            Wire newWire = new Wire(found.getPos(), p.getPos());
+            Wire newWire = createWire(found.getPos(), p.getPos());
             for (Wire w : getCircuit().getWires())
                 if (w.equalsContent(newWire))
                     return;
@@ -2132,7 +2154,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
         private void activate(Vector startPos, Vector endPos) {
             super.activate();
-            wire = new Wire(raster(startPos), raster(endPos));
+            wire = createWire(raster(startPos), raster(endPos));
         }
 
         @Override
@@ -2198,8 +2220,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         private void activate(Vector startPos, Vector endPos) {
             super.activate();
             initialPos = raster(startPos);
-            wire1 = new Wire(startPos, endPos);
-            wire2 = new Wire(startPos, endPos);
+            wire1 = createWire(startPos, endPos);
+            wire2 = createWire(startPos, endPos);
             selectionMade = true;
             lastPosition = endPos;
             setWires();
@@ -2253,8 +2275,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                     else {
                         initialPos = wire2.p2;
                         selectionMade = false;
-                        wire1 = new Wire(wire2.p2, wire2.p2);
-                        wire2 = new Wire(wire2.p2, wire2.p2);
+                        wire1 = createWire(wire2.p2, wire2.p2);
+                        wire2 = createWire(wire2.p2, wire2.p2);
                     }
                 }
             }
@@ -2298,8 +2320,8 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             origWire = w;
             shallowCopy = getCircuit().createShallowCopy();
             shallowCopy.delete(w);
-            wire1 = new Wire(w.p1, startPos);
-            wire2 = new Wire(startPos, w.p2);
+            wire1 = new Wire(w.p1, startPos).setColor(w.getColor());
+            wire2 = new Wire(startPos, w.p2).setColor(w.getColor());
         }
 
         @Override

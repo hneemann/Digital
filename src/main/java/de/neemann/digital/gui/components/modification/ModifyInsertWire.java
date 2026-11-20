@@ -11,12 +11,15 @@ import de.neemann.digital.draw.graphics.Vector;
 import de.neemann.digital.lang.Lang;
 import de.neemann.digital.undo.Modification;
 
+import java.awt.Color;
+
 /**
  * Modifier to insert a wire.
  */
 public class ModifyInsertWire implements Modification<Circuit> {
     private final Vector p1;
     private final Vector p2;
+    private final Color color;
 
     /**
      * Creates a new instance
@@ -26,11 +29,12 @@ public class ModifyInsertWire implements Modification<Circuit> {
     public ModifyInsertWire(Wire w) {
         p1 = w.p1;
         p2 = w.p2;
+        color = w.getColor();
     }
 
     @Override
     public void modify(Circuit circuit) {
-        circuit.add(new Wire(p1, p2));
+        circuit.add(new Wire(p1, p2).setColor(color));
     }
 
     /**

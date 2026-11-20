@@ -232,6 +232,22 @@ public final class Main extends JFrame implements ClosingWindowListener.ConfirmS
         toolBar.add(circuitComponent.getUndoAction().createJButtonNoText());
         toolBar.add(circuitComponent.getRedoAction().createJButtonNoText());
         toolBar.add(circuitComponent.getDeleteAction().createJButtonNoText());
+        Color defaultWireColor = ColorScheme.getSelected().getColor(ColorKey.WIRE);
+        JButton wireColorButton = new JButton(Lang.get("msg_color"));
+        wireColorButton.setToolTipText(Lang.get("msg_color"));
+        wireColorButton.setBackground(defaultWireColor);
+        wireColorButton.setOpaque(true);
+        wireColorButton.addActionListener(e -> {
+            Color initialColor = circuitComponent.getWireColor();
+            if (initialColor == null)
+                initialColor = defaultWireColor;
+            Color selectedColor = JColorChooser.showDialog(this, Lang.get("msg_color"), initialColor);
+            if (selectedColor != null) {
+                circuitComponent.setWireColor(selectedColor);
+                wireColorButton.setBackground(selectedColor);
+            }
+        });
+        toolBar.add(wireColorButton);
         toolBar.addSeparator();
 
         createStartMenu(menuBar, toolBar);

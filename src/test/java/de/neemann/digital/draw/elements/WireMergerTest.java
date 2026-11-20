@@ -8,6 +8,7 @@ package de.neemann.digital.draw.elements;
 import de.neemann.digital.draw.graphics.Vector;
 import junit.framework.TestCase;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -75,5 +76,29 @@ public class WireMergerTest extends TestCase {
         wm.addTo(newWires);
         assertEquals(1, newWires.size());
         assertTrue(new Wire(new Vector(1, 3), new Vector(8, 3)).equalsContent(newWires.get(0)));
+    }
+
+    public void testDoesNotMergeDifferentColors() {
+        Color red = Color.RED;
+        Color blue = Color.BLUE;
+        WireMerger wm = new WireMerger(Wire.Orientation.horizontal);
+        wm.add(new Wire(new Vector(1, 3), new Vector(5, 3)).setColor(red));
+        wm.add(new Wire(new Vector(5, 3), new Vector(8, 3)).setColor(red));
+        wm.add(new Wire(new Vector(8, 3), new Vector(12, 3)).setColor(blue));
+
+        ArrayList<Wire> newWires = new ArrayList<>();
+        wm.addTo(newWires);
+
+        assertEquals(2, newWires.size());
+        assertTrue(hasWire(newWires, 1, 8, red));
+        assertTrue(hasWire(newWires, 8, 12, blue));
+    }
+
+    private boolean hasWire(ArrayList<Wire> wires, int start, int end, Color color) {
+        for (Wire wire : wires)
+            if (wire.p1.equals(new Vector(start, 3)) && wire.p2.equals(new Vector(end, 3))
+                    && color.equals(wire.getColor()))
+                return true;
+        return false;
     }
 }
