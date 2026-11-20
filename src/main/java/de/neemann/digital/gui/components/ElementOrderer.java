@@ -112,12 +112,14 @@ public class ElementOrderer<T> extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 int i0 = list.getSelectionModel().getMinSelectionIndex();
                 int i1 = list.getSelectionModel().getMaxSelectionIndex();
-                int del = i1 - i0 + 1;
-                if (data.size() - del >= minEntries && del > 0)
-                    for (int i = i1; i >= i0; i--)
-                        listModel.delete(i);
-                if (data.size() <= minEntries)
-                    setEnabled(false);
+                if (i0 >= 0 && i1 >= 0) {
+                    int del = i1 - i0 + 1;
+                    if (data.size() - del >= minEntries && del > 0)
+                        for (int i = i1; i >= i0; i--)
+                            listModel.delete(i);
+                    if (data.size() <= minEntries)
+                        setEnabled(false);
+                }
             }
         }.setToolTip(Lang.get("tt_deleteItem")).setEnabledChain(data.size() > minEntries).createJButton());
         return this;
