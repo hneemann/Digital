@@ -40,6 +40,7 @@ public class Driver extends Node implements Element, Countable {
     private ObservableValue input;
     private ObservableValue selIn;
     private long value;
+    private long highZ;
     private boolean sel;
 
     /**
@@ -58,6 +59,7 @@ public class Driver extends Node implements Element, Countable {
     @Override
     public void readInputs() throws NodeException {
         value = input.getValue();
+        highZ = input.getHighZ();
         sel = selIn.getBool();
     }
 
@@ -67,9 +69,9 @@ public class Driver extends Node implements Element, Countable {
             output.setToHighZ();
         else {
             if (invertOut)
-                output.setValue(~value);
+                output.set(~value, highZ);
             else
-                output.setValue(value);
+                output.set(value, highZ);
         }
     }
 

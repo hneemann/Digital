@@ -33,4 +33,20 @@ public class DriverTest extends TestCase {
         sc.check(2, 1, 2);
     }
 
+    public void testDriverHighZInput() throws Exception {
+        ObservableValue a = new ObservableValue("a", 2);
+        ObservableValue sel = new ObservableValue("sel", 1);
+
+        Model model = new Model();
+        Driver out = model.add(new Driver(new ElementAttributes().setBits(2)));
+        out.setInputs(ovs(a, sel));
+
+        TestExecuter sc = new TestExecuter(model).setInputs(a, sel).setOutputs(out.getOutputs());
+        sc.checkZ(1, 1, 1);
+        sc.checkZ(HIGHZ, 1, HIGHZ);
+        sc.checkZ(3, 1, 3);
+        sc.checkZ(HIGHZ, 0, HIGHZ);
+        sc.checkZ(2, 1, 2);
+    }
+
 }
