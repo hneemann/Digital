@@ -8,6 +8,9 @@
         data=loadHex(elem.lastDataFile, elem.Bits);
     }
     romSize := sizeOf(data);
+    if (romSize = 0) {
+        romSize = 1;
+    }
     moduleName = format("%s_%dX%d_%s", moduleName, romMaxSize, elem.Bits, identifier(elem.Label));
     dBitRange := format("[%d:0]", elem.Bits - 1);
     aBitRange := format("[%d:0]", elem.AddrBits - 1);
@@ -32,9 +35,13 @@
     end
 
     initial begin<?
-
-    for (i := 0; i < romSize; i++) { ?>
+    if( sizeOf(data) = 0) { ?>
+        my_rom[0]=0;<?
+    }
+    else {
+        for (i := 0; i < romSize; i++) { ?>
         my_rom[<?= i ?>] = <?= format("%d'h%x", elem.Bits, data[i]) ?>;<?
+        }
     } ?>
     end
 endmodule
