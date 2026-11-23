@@ -120,20 +120,115 @@ public class CleanNameBuilder implements BuilderInterface<CleanNameBuilder> {
         String filter(String name);
     }
 
+    /**
+     * The SimpleFilter class applies multiple CharacterFilter instances to filter the input string.
+     */
     private static final class SimpleFilter implements Filter {
+        private final CharacterFilter[] filters;
+
+        /**
+         * Creates a SimpleFilter instance with a predefined set of character filters.
+         */
+         SimpleFilter() {
+            filters = new CharacterFilter[]{
+                    new RangeCharacterFilter('A', 'Z'),
+                    new RangeCharacterFilter('a', 'z'),
+                    new RangeCharacterFilter('0', '9'),
+                    new SingleCharacterFilter('_')
+            };
+        }
+
+        /**
+         * Filters the input string by applying the CharacterFilter instances.
+         *
+         * @param name the input string to filter
+         * @return the filtered string containing only accepted characters
+         */
         @Override
         public String filter(String name) {
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < name.length(); i++) {
                 char c = name.charAt(i);
-                if ((c >= 'A' && c <= 'Z')
-                        || (c >= 'a' && c <= 'z')
-                        || (c >= '0' && c <= '9')
-                        || c == '_')
-                    sb.append(c);
+                for (CharacterFilter filter : filters) {
+                    if (filter.accept(c)) {
+                        sb.append(c);
+                        break;
+                    }
+                }
             }
 
             return sb.toString();
         }
+
+        /**
+         * The CharacterFilter interface defines a method to check if a character is accepted by the filter.
+         */
+        private interface CharacterFilter {
+            /**
+             * Checks if the given character is accepted by the filter.
+             *
+             * @param c the character to check
+             * @return true if the character is accepted, false otherwise
+             */
+            boolean accept(char c);
+        }
+
+        /**
+         * The RangeCharacterFilter class accepts characters within a specified range.
+         */
+        private static class RangeCharacterFilter implements CharacterFilter {
+            private final char min;
+            private final char max;
+
+            /**
+             * Creates a RangeCharacterFilter instance with a specified character range.
+             *
+             * @param min the minimum character in the range (inclusive)
+             * @param max the maximum character in the range (inclusive)
+             */
+            RangeCharacterFilter(char min, char max) {
+                this.min = min;
+                this.max = max;
+            }
+
+            /**
+             * Checks if the given character is within the specified range.
+             *
+             * @param c the character to check
+             * @return true if the character is within the range, false otherwise
+             */
+            @Override
+            public boolean accept(char c) {
+                return c >= min && c <= max;
+            }
+        }
+
+        /**
+         * The SingleCharacterFilter class accepts a single specified character.
+         */
+        private static class SingleCharacterFilter implements CharacterFilter {
+            private final char target;
+
+            /**
+             * Creates a SingleCharacterFilter instance with a specified character to accept.
+             *
+             * @param target the character to accept
+             */
+            SingleCharacterFilter(char target) {
+                this.target = target;
+            }
+
+            /**
+             * Checks if the given character is equal to the specified target character.
+             *
+             * @param c the character to check
+             * @return true if the character is equal to the target character, false otherwise
+             */
+            @Override
+            public boolean accept(char c) {
+                return c == target;
+            }
+        }
+
     }
 }
