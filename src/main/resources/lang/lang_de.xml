@@ -2628,4 +2628,14 @@ Sie dürfen jedoch nicht oberhalb der Kopfzeile mit den Signalnamen verwendet we
     <string name="tutorialNotNeeded">
         Tutorial überspringen
     </string>
+
+    <string name="key_showValue">Wert anzeigen</string>
+    <string name="key_showValue_tt">Zeigt den Wert des Signals beim Tunnel an.</string>
+
+    <string name="key_valPos">Position des Werts</string>
+    <string name="key_valPos_LEFT">Links</string>
+    <string name="key_valPos_RIGHT">Rechts</string>
+    <string name="key_valPos_TOP">Oben</string>
+    <string name="key_valPos_BOTTOM">Unten</string>
+
 </resources>
