@@ -38,10 +38,13 @@ public final class ColorScheme {
             .build();
 
     private static final ColorScheme DARK_SCHEME = new Builder(DEFAULT_SCHEME)
-            .set(ColorKey.BACKGROUND, Color.BLACK)
-            .set(ColorKey.MAIN, Color.GRAY)
-            .set(ColorKey.GRID, new Color(50, 50, 50))
-            .set(ColorKey.DISABLED, new Color(40, 40, 40))
+            .set(ColorKey.BACKGROUND, new Color(30, 30, 30))
+            .set(ColorKey.MAIN, new Color(230, 230, 230))
+            .set(ColorKey.GRID, new Color(70, 70, 70))
+            .set(ColorKey.DISABLED, new Color(110, 110, 110))
+            .set(ColorKey.PINS, new Color(180, 180, 180))
+            .set(ColorKey.HIGHLIGHT, new Color(0, 230, 255))
+            .set(ColorKey.WIRE_Z, new Color(160, 160, 160))
             .build();
 
     private static final ColorScheme COLOR_BLIND_SCHEME = new Builder(DEFAULT_SCHEME)

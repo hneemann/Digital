@@ -1986,6 +1986,9 @@ Sind evtl. die Namen der Variablen nicht eindeutig?</string>
     <string name="menu_presentationMode">Präsentationsmodus</string>
     <string name="menu_presentationMode_tt">Eine vereinfachte Darstellung, die z.B. die Testfälle auslässt, was für Präsentationen hilfreich sein kann.</string>
 
+    <string name="menu_darkMode">Dunkelmodus</string>
+    <string name="menu_darkMode_tt">Wechselt die Anwendung und die Schaltungsansicht zwischen heller und dunkler Darstellung.</string>
+
     <string name="menu_special">Sonderfunktionen 74xx</string>
     <string name="menu_addPrefix">IO-Präfix anfügen</string>
     <string name="menu_addPrefix_tt">Alle selektierten Eingänge und Ausgänge mit einem Präfix versehen.
