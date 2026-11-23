@@ -4,6 +4,9 @@ HEAD, planned as v0.32
 - Fixed some bugs in the creation of circuits.
 - Fixed an Intel Hex import error that occurred when
   files contained more than 64 kBytes of data.
+- Fixed the empty main window which was shown on window managers that
+  do not reparent windows, like sway or i3. The Linux launcher sets
+  _JAVA_AWT_WM_NONREPARENTING automatically now.
 
 v0.31, released on 3. September 2024
 - Added a run command to the cli to run circuit headless
