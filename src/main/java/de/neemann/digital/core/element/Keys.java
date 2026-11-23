@@ -15,6 +15,7 @@ import de.neemann.digital.core.io.InValue;
 import de.neemann.digital.core.io.ProbeMode;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.rom.ROMManagerFile;
+import de.neemann.digital.core.simavr.Simavr;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.graphics.Style;
 import de.neemann.digital.draw.library.ElementLibrary;
@@ -1028,4 +1029,16 @@ public final class Keys {
      */
     public static final Key<Boolean> SKIP_HDL =
             new Key<>("skipHDL", false).setSecondary();
+
+    /**
+     * The simavr MCU name
+     */
+    public static final Key.KeyEnum<Simavr.Mcu> SIMAVR_MCU =
+            new Key.KeyEnum<>("simavrMcu", Simavr.Mcu.atmega328, Simavr.Mcu.values(), true);
+
+    /**
+     * Path to the ELF file containing the firmware to be loaded by simavr
+     */
+    public static final Key.KeyFile SIMAVR_FIRMWARE_FILE_PATH =
+            new Key.KeyFile("simavrFirmwareFilePath", new File("src/test/resources/simavr/test-firmware/firmware.elf"));
 }

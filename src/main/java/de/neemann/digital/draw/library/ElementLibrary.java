@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2016 Helmut Neemann
+ * Copyright (c) 2026 Jonas Meeuws
  * Use of this source code is governed by the GPL v3 license
  * that can be found in the LICENSE file.
  */
@@ -21,6 +22,7 @@ import de.neemann.digital.core.pld.DiodeBackward;
 import de.neemann.digital.core.pld.DiodeForward;
 import de.neemann.digital.core.pld.PullDown;
 import de.neemann.digital.core.pld.PullUp;
+import de.neemann.digital.core.simavr.Simavr;
 import de.neemann.digital.core.switching.*;
 import de.neemann.digital.core.wiring.*;
 import de.neemann.digital.draw.elements.Circuit;
@@ -238,6 +240,7 @@ public class ElementLibrary implements Iterable<ElementLibrary.ElementContainer>
                                 .add(External.DESCRIPTION)
                                 .add(ExternalFile.DESCRIPTION)
                                 .add(PinControl.DESCRIPTION))
+                        .add(Simavr.DESCRIPTION)
                         .add(PowerSupply.DESCRIPTION)
                         .add(BusSplitter.DESCRIPTION)
                         .add(Reset.DESCRIPTION)

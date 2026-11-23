@@ -83,3 +83,6 @@ nbactions.xml
 .project
 .settings
 .vscode
+
+# simavr tests
+*.elf

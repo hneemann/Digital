@@ -20,6 +20,7 @@ import de.neemann.digital.core.io.ProbeMode;
 import de.neemann.digital.core.memory.DataField;
 import de.neemann.digital.core.memory.rom.ROMManager;
 import de.neemann.digital.core.memory.rom.ROMManagerFile;
+import de.neemann.digital.core.simavr.Simavr;
 import de.neemann.digital.draw.graphics.Orientation;
 import de.neemann.digital.draw.model.InverterConfig;
 import de.neemann.digital.draw.shapes.CustomCircuitShapeType;
@@ -73,6 +74,7 @@ public class SubstituteLibraryTest extends TestCase {
         check(FormatToExpression.DERIVE, doImplicitTypeCasts(FormatToExpression.class, 1));
         check(ScopeTrigger.Trigger.falling, doImplicitTypeCasts(ScopeTrigger.Trigger.class, 1));
         check(ProbeMode.VALUE, doImplicitTypeCasts(ProbeMode.class, 0));
+        check(Simavr.Mcu.atmega48, doImplicitTypeCasts(Simavr.Mcu.class, 1));
 
         check(new Color(0xf0, 0xf0, 0xf0), doImplicitTypeCasts(Color.class, 0xf0f0f0));
         check(new Rotation(2), doImplicitTypeCasts(Rotation.class, 2));
