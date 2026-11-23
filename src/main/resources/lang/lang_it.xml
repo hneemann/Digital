@@ -1163,6 +1163,7 @@ In the file howTo.md you can find more details about translations.
     <string name="key_applicationType">Applicazione</string>
     <string name="key_applicationType_tt">Definisce quale applicazione utilizzare.</string>
     <string name="key_applicationType_Generic">Generica</string>
+    <string name="key_applicationType_Socket">Socket</string>
     <string name="key_externalInputs">Ingressi</string>
     <string name="key_externalInputs_tt">Gli ingressi del processo esterno.
         Questa è una lista di nomi di segnali separati da virgola. Per ogni nome, un numero di bit separato

@@ -1550,6 +1550,7 @@ In the file howTo.md you can find more details about translations.
     <string name="key_applicationType_Generic">Générique</string>
     <string name="key_applicationType_GHDL">GHDL</string>
     <string name="key_applicationType_IVERILOG">IVerilog</string>
+    <string name="key_applicationType_Socket">Socket</string>
     <string name="key_externalInputs">Entrées</string>
     <string name="key_externalInputs_tt">Les entrées du processus externe.
         C'est une liste de noms de signaux séparée par des virgules. Pour chaque nom de signal, un nombre de bits
