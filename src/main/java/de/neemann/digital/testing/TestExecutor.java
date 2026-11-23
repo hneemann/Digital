@@ -34,6 +34,7 @@ public class TestExecutor {
     private final ArrayList<TestSignal> outputs;
     private boolean allowMissingInputs;
     private boolean errorOccurred;
+    private ArrayList<String> pendingMissingNames;
 
     /**
      * Creates a new testing result.
@@ -134,15 +135,10 @@ public class TestExecutor {
             }
         }
 
+        pendingMissingNames = new ArrayList<>();
         for (String name : names)
             if (!usedSignals.contains(name))
-                if (allowMissingInputs)
-                    inputs.add(new TestSignal(getIndexOf(name), null));
-                else
-                    throw new TestingDataException(Lang.get("err_testSignal_N_notFound", name));
-
-        if (inputs.size() == 0)
-            throw new TestingDataException(Lang.get("err_noTestInputSignalsDefined"));
+                pendingMissingNames.add(name);
 
         if (outputs.size() == 0)
             throw new TestingDataException(Lang.get("err_noTestOutputSignalsDefined"));
@@ -229,6 +225,18 @@ public class TestExecutor {
      * @throws ParserException ParserException
      */
     private <LL extends LineListener> LL execute(LL lineListener, boolean closeModel) throws ParserException, TestingDataException {
+        if (!pendingMissingNames.isEmpty()) {
+            for (String name : pendingMissingNames)
+                if (allowMissingInputs)
+                    inputs.add(new TestSignal(getIndexOf(name), null));
+                else
+                    throw new TestingDataException(Lang.get("err_testSignal_N_notFound", name));
+            pendingMissingNames.clear();
+        }
+
+        if (inputs.size() == 0)
+            throw new TestingDataException(Lang.get("err_noTestInputSignalsDefined"));
+
         try {
             lines.emitLines(new LineListenerResolveDontCare(lineListener, inputs), context);
             return lineListener;
