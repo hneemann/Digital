@@ -228,6 +228,14 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             }
         }.setAccelerator("S").enableAcceleratorIn(this);
 
+        new ToolTipAction("insertElementInWire") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (activeMouseController instanceof MouseControllerInsertElement)
+                    ((MouseControllerInsertElement) activeMouseController).insertIntoWire();
+            }
+        }.setAccelerator("I").enableAcceleratorIn(this);
+
         createAdditionalShortcuts(shapeFactory);
 
         getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), DEL_ACTION);
@@ -1923,6 +1931,17 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         @Override
         public void escapePressed() {
             mouseNormal.activate();
+        }
+
+        private void insertIntoWire() {
+            if (isLocked() || delta == null)
+                return;
+
+            Modification<Circuit> modification = InsertElementInWire.createAtPreview(getCircuit(), element);
+            if (modification != null) {
+                modify(modification);
+                mouseNormal.activate();
+            }
         }
 
     }
