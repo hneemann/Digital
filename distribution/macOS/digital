@@ -1,0 +1,46 @@
+#!/bin/sh
+#
+# The command "digital" of Digital.app. It does the same as "java -jar Digital.jar"
+# and "java -cp Digital.jar CLI", but uses the Java runtime contained in the app:
+#
+#   digital [file]                  starts the simulator, optionally opening a file
+#   digital test|svg|stats|run ...  runs a command of the command line interface
+#   digital help                    shows the commands
+#
+# To call it from any folder, create a link in a folder of the PATH:
+#   sudo mkdir -p /usr/local/bin
+#   sudo ln -s /Applications/Digital.app/Contents/app/bin/digital /usr/local/bin/digital
+#
+set -e
+
+# This script is located in Digital.app/Contents/app/bin. Links are resolved,
+# so the app is also found if the script is called by a link.
+self=$0
+while [ -L "$self" ]; do
+    link=$(readlink "$self")
+    case $link in
+        /*) self=$link ;;
+        *) self=$(dirname "$self")/$link ;;
+    esac
+done
+contents=$(cd "$(dirname "$self")/../.." && pwd -P)
+
+case ${1-} in
+    test|svg|stats|run)
+        # same as "java -cp Digital.jar CLI", without a window or dock icon
+        exec "$contents/MacOS/digital-cli" "$@"
+        ;;
+    help|-h|--help)
+        echo "usage: digital [file]                 starts the simulator"
+        echo "       digital test -circ <file> ...  tests a circuit"
+        echo "       digital svg -dig <file> ...    exports a circuit as SVG"
+        echo "       digital stats -dig <file> ...  writes the statistics of a circuit as CSV"
+        echo "       digital run -dig <file>        runs a circuit without a window"
+        echo
+        echo "A command without options shows its options, e.g. \"digital test\"."
+        ;;
+    *)
+        # same as "java -jar Digital.jar"
+        exec "$contents/MacOS/Digital" "$@"
+        ;;
+esac
