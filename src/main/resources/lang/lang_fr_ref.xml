@@ -1651,6 +1651,16 @@ In the file howTo.md you can find more details about translations.
     <string name="cli_help_stats_csv">Name of the CSV file to be created.
         If this option is missing, the table is written to stdout.
     </string>
+    <string name ="cli_help_hello"> TODO: Needs to be translated </string>
+    <string name ="cli_help_hello_name"> TODO: Needs to be translated </string>
+    <string name ="cli_help_export"> TODO: Needs to be translated </string>    
+    <string name ="cli_help_export_dig">TODO: Needs to be translated</string>
+    <string name ="cli_help_export_hdl">TODO: Needs to be translated</string>
+    <string name ="cli_help_export_language">TODO: Needs to be translated</string>
+    <string name ="cli_errorLanguageInvalid">TODO: Needs to be translated</string>
+    <string name ="cli_errorDigFileNotFound">TODO: Needs to be translated</string>
+    <string name ="cli_errorExportFailed">TODO: Needs to be translated</string>
+
     <string name="cli_errorCreatingStats">Error while creating the stats file!</string>
     <string name="menu_window">Windows</string>
     <string name="menu_about">About</string>

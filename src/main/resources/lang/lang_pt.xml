@@ -2208,6 +2208,18 @@ In the file howTo.md you can find more details about translations.
     <string name="cli_help_stats_csv">Nome do arquivo CSV a ser criado.
         Se essa opção for omitida, a tabela será escrita na saída padrão.
     </string>
+
+    <string name ="cli_help_hello"> TODO: Needs to be translated </string>
+    <string name ="cli_help_hello_name"> TODO: Needs to be translated </string>
+    <string name ="cli_help_export"> TODO: Needs to be translated </string>    
+    <string name ="cli_help_export_dig">TODO: Needs to be translated</string>
+    <string name ="cli_help_export_hdl">TODO: Needs to be translated</string>
+    <string name ="cli_help_export_language">TODO: Needs to be translated</string>
+    <string name ="cli_errorLanguageInvalid">TODO: Needs to be translated</string>
+    <string name ="cli_errorDigFileNotFound">TODO: Needs to be translated</string>
+    <string name ="cli_errorExportFailed">TODO: Needs to be translated</string>
+
+
     <string name="cli_errorCreatingStats">Erro ao criar o arquivo com estatísticas!</string>
     <string name="menu_table_exportTablePlainText">Exportar para texto puro</string>
     <string name="elem_StepperMotorBipolar_pin_A-">Bobina A, negativo</string>
