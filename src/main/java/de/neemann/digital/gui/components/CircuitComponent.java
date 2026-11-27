@@ -279,6 +279,20 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         MouseDispatcher dispatcher = new MouseDispatcher();
         addMouseMotionListener(dispatcher);
         addMouseListener(dispatcher);
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int key = e.getKeyCode();
+                if (key == KeyEvent.VK_SHIFT && activeMouseController == mouseSelect)
+                    mouseSelect.pickUpSelection();
+                else if ((key == KeyEvent.VK_CONTROL || key == KeyEvent.VK_META) && mouse.isSelectionModifier(e)) {
+                    if (activeMouseController == mouseMoveElement)
+                        mouseSelect.toggleComponent(mouseMoveElement.originalVisualElement);
+                    else if (activeMouseController == mouseSelect)
+                        mouseSelect.enableAdding();
+                }
+            }
+        });
 
         enableFavoritePositions();
 
@@ -339,13 +353,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         new ToolTipAction("selectAll") {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (activeMouseController == mouseNormal) {
+                if (activeMouseController == mouseNormal || activeMouseController == mouseSelect) {
                     GraphicMinMax gr = new GraphicMinMax();
                     getCircuit().drawTo(gr);
-                    if (gr.getMin() != null && gr.getMax() != null) {
-                        mouseSelect.activate(gr.getMin(), gr.getMax());
-                        mouseSelect.release();
-                    }
+                    if (gr.getMin() != null && gr.getMax() != null)
+                        mouseSelect.selectAll(gr.getMin(), gr.getMax());
                 }
             }
         }.setAcceleratorCTRLplus('A').enableAcceleratorIn(this);
@@ -457,19 +469,12 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         return new ToolTipAction(Lang.get("menu_cut")) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!isLocked()) {
-                    if (activeMouseController instanceof MouseControllerSelect) {
-                        MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
-                        Vector min = Vector.min(mcs.corner1, mcs.corner2);
-                        Vector max = Vector.max(mcs.corner1, mcs.corner2);
-                        ArrayList<Movable> elements = getCircuit().copyElementsToMove(min, max, shapeFactory);
-                        if (elements != null) {
-                            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                            clipboard.setContents(new CircuitTransferable(elements), null);
-                            modify(new ModifyDeleteRect(min, max));
-                            activeMouseController.escapePressed();
-                        }
-                    }
+                if (activeMouseController != mouseSelect || isLocked()) return;
+                ArrayList<Movable> elements = mouseSelect.getSelection().copy(getCircuit(), shapeFactory);
+                if (elements != null) {
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(new CircuitTransferable(elements), null);
+                    modify(new ModifyDeleteSelection(mouseSelect.getSelection()));
                 }
             }
         }.setEnabledChain(false).setAcceleratorCTRLplus('X').enableAcceleratorIn(this);
@@ -490,16 +495,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     }
 
     private ArrayList<Movable> getSelectedElements(ShapeFactory shapeFactory) {
-        ArrayList<Movable> elements = null;
-        if (activeMouseController instanceof MouseControllerSelect) {
-            MouseControllerSelect mcs = ((MouseControllerSelect) activeMouseController);
-            elements = getCircuit().copyElementsToMove(Vector.min(mcs.corner1, mcs.corner2), Vector.max(mcs.corner1, mcs.corner2), shapeFactory);
-        } else if (activeMouseController instanceof MouseControllerMoveElement) {
-            MouseControllerMoveElement mcme = ((MouseControllerMoveElement) activeMouseController);
-            elements = new ArrayList<>();
-            elements.add(mcme.visualElement);
-        }
-        return elements;
+        if (activeMouseController == mouseSelect)
+            return mouseSelect.getSelection().copy(getCircuit(), shapeFactory);
+        if (activeMouseController == mouseMoveElement)
+            return new ArrayList<>(Collections.singletonList(mouseMoveElement.visualElement));
+        return null;
     }
 
 
@@ -523,6 +523,9 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     public void modify(Modification<Circuit> modification) {
         try {
             if (modification != null) {
+                // An edit can invalidate the indices used by an active selection.
+                if (activeMouseController == mouseSelect || activeMouseController == mouseMoveSelected)
+                    activeMouseController.escapePressed();
                 toolTipNetList = null;
                 undoManager.apply(modification);
                 if (tutorialListener != null)
@@ -1457,17 +1460,15 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     }
 
     private VisualElement getActualVisualElement() {
-        if (activeMouseController instanceof MouseControllerMoveElement)
+        if (activeMouseController == mouseMoveElement)
             mouseNormal.activate();
+        if (activeMouseController == mouseSelect && mouseSelect.state.isAdditive())
+            return mouseSelect.getSelection().getSingleElement(getCircuit());
 
-        VisualElement ve = null;
-        if (activeMouseController instanceof MouseControllerNormal && lastMousePos != null) {
-            Vector pos = getPosVector(lastMousePos.x, lastMousePos.y);
-            ve = getCircuit().getElementAt(pos);
-            if (ve == null)
-                ve = getCircuit().getElementAt(pos, true);
-        }
-        return ve;
+        if (activeMouseController != mouseNormal || lastMousePos == null) return null;
+        Vector pos = getPosVector(lastMousePos.x, lastMousePos.y);
+        VisualElement element = getCircuit().getElementAt(pos);
+        return element != null ? element : getCircuit().getElementAt(pos, true);
     }
 
     /**
@@ -1477,28 +1478,23 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         return library;
     }
 
-    private void editGroup(Vector min, Vector max) {
+    private void editGroup(CircuitSelection selection) {
         if (!isLocked())
             try {
                 ArrayList<Key> keyList = new ArrayList<>();
-                ArrayList<VisualElement> elementList = new ArrayList<>();
+                ArrayList<VisualElement> elementList = selection.getComponents(getCircuit());
                 HashMap<Key, Boolean> useKeyMap = new HashMap<>();
                 ElementAttributes attr = new ElementAttributes();
-                for (VisualElement ve : getCircuit().getElements())
-                    if (ve.matches(min, max)) {
-                        elementList.add(ve);
-                        for (Key k : getAttributeList(ve)) {
-                            if (k.isGroupEditAllowed()) {
-                                if (keyList.contains(k)) {
-                                    if (!ve.getElementAttributes().get(k).equals(attr.get(k))) {
-                                        useKeyMap.put(k, false);
-                                    }
-                                } else {
-                                    keyList.add(k);
-                                    attr.set(k, ve.getElementAttributes().get(k));
-                                    useKeyMap.put(k, true);
-                                }
-                            }
+                for (VisualElement ve : elementList)
+                    for (Key k : getAttributeList(ve)) {
+                        if (!k.isGroupEditAllowed()) continue;
+                        if (keyList.contains(k)) {
+                            if (!ve.getElementAttributes().get(k).equals(attr.get(k)))
+                                useKeyMap.put(k, false);
+                        } else {
+                            keyList.add(k);
+                            attr.set(k, ve.getElementAttributes().get(k));
+                            useKeyMap.put(k, true);
                         }
                     }
 
@@ -1628,7 +1624,7 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
         @Override
         public void mousePressed(MouseEvent e) {
-            hadFocusAtClick = hasFocus() || parent.hasMouseFocus();
+            hadFocusAtClick = hasFocus() || (parent != null && parent.hasMouseFocus());
             pos = new Vector(e.getX(), e.getY());
             isMoved = false;
             requestFocusInWindow();
@@ -1637,9 +1633,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            activeMouseController.released(e);
-            if (!(wasMoved(e) || isMoved))
-                activeMouseController.clicked(e);
+            lastMousePos = new Vector(e.getX(), e.getY());
+            MouseController controller = activeMouseController;
+            controller.released(e);
+            if (!(wasMoved(e) || isMoved) && activeMouseController == controller)
+                controller.clicked(e);
         }
 
         private boolean wasMoved(MouseEvent e) {
@@ -1781,6 +1779,15 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
     //CHECKSTYLE.ON: FinalClass
 
+    private void clickComponent(VisualElement component, Vector pos, MouseEvent e) {
+        if (mouse.isSelectionModifier(e))
+            mouseSelect.toggleComponent(component);
+        else if (component.isPinPos(raster(pos)) && !mouse.isClickModifier(e)) {
+            if (!isLocked()) mouseWireRect.activate(pos);
+        } else
+            mouseMoveElement.activate(component, pos);
+    }
+
     private final class MouseControllerNormal extends MouseController {
         private Vector pos;
         private MouseEvent downButton;
@@ -1804,18 +1811,14 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 SearchResult sel = getVisualElement(pos, true);
                 if (sel.getVisualElement() != null)
                     editAttributes(sel.getVisualElement(), e);
-            } else if (mouse.isPrimaryClick(e) && hadFocusAtClick) {
+            } else if (mouse.isPrimaryClick(e) && (hadFocusAtClick || mouse.isSelectionModifier(e))) {
                 SearchResult sel = getVisualElement(pos, false);
                 switch (sel.getState()) {
                     case FOUND:
-                        VisualElement vp = sel.getVisualElement();
-                        if (vp.isPinPos(raster(pos)) && !mouse.isClickModifier(e)) {
-                            if (!isLocked()) mouseWireRect.activate(pos);
-                        } else
-                            mouseMoveElement.activate(vp, pos);
+                        clickComponent(sel.getVisualElement(), pos, e);
                         break;
                     case NONE:
-                        if (!isLocked()) {
+                        if (hadFocusAtClick && !isLocked()) {
                             if (mouse.isClickModifier(e)) {
                                 Wire wire = getCircuit().getWireAt(pos, SIZE2);
                                 if (wire != null)
@@ -1851,10 +1854,11 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
                 Vector p = getPosVector(e);
                 if (pos == null)
                     pos = p;
-                if (pressedElement != null && pressedElement.equalsDescription(DummyElement.RECTDESCRIPTION))
+                boolean additive = mouse.isSelectionModifier(downButton);
+                if (!additive && pressedElement != null && pressedElement.equalsDescription(DummyElement.RECTDESCRIPTION))
                     mouseResizeRect.activate(pressedElement, pos);
                 else
-                    mouseSelect.activate(pos, p);
+                    mouseSelect.beginBox(pos, p, mouse.isClickModifier(e), additive);
                 return true;
             }
             return !mouse.isSecondaryClick(downButton);
@@ -2336,197 +2340,235 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
     }
 
     private final class MouseControllerSelect extends MouseController {
-        private static final int MIN_SIZE = 8;
-        private Vector corner1;
-        private Vector corner2;
-        private boolean wasReleased;
-        private boolean moveOnDragging;
+        private final CircuitSelectionState state = new CircuitSelectionState();
+        private MouseEvent downButton;
 
         private MouseControllerSelect(Cursor cursor) {
             super(cursor);
         }
 
-        private void activate(Vector corner1, Vector corner2) {
+        private CircuitSelection getSelection() {
+            return state.getSelection();
+        }
+
+        private void beginBox(Vector first, Vector second, boolean square, boolean additive) {
             super.activate();
-            this.corner1 = corner1;
-            this.corner2 = corner2;
-            deleteAction.setEnabled(true);
-            copyAction.setEnabled(true);
-            cutAction.setEnabled(true);
-            rotateAction.setEnabled(true);
-            wasReleased = false;
+            state.startBox(first, additive);
+            state.updateBox(getCircuit(), second, square);
             updateHighlighting();
+        }
+
+        private void selectAll(Vector min, Vector max) {
+            beginBox(min, max, false, false);
+            state.finishBox(true);
+            finishSelection();
+        }
+
+        private void toggleComponent(VisualElement component) {
+            super.activate();
+            state.toggleComponent(getCircuit(), component);
+            finishSelection();
+        }
+
+        private void enableAdding() {
+            if (!state.isAdditive() && !state.isDraggingBox()) {
+                state.enableAdding();
+                finishSelection();
+            }
+        }
+
+        private void pickUpSelection() {
+            if (state.isAdditive() && !state.isDraggingBox() && !isLocked()) {
+                Vector pos = getPosVector(lastMousePos.x, lastMousePos.y);
+                mouseMoveSelected.activate(getSelection(), pos, rotationCenter(), true);
+            }
         }
 
         @Override
         void clicked(MouseEvent e) {
-            if (mouse.isPrimaryClick(e)) {
-                mouseNormal.activate();
-                removeHighLighted();
-            } else if (mouse.isSecondaryClick(e)) {
-                editGroup(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
-                mouseNormal.activate();
-                removeHighLighted();
+            if (mouse.isSecondaryClick(e)) {
+                editGroup(getSelection());
+                escapePressed();
+            } else if (mouse.isPrimaryClick(e)) {
+                boolean toggle = mouse.isSelectionModifier(e);
+                if (!state.isAdditive() && !toggle) {
+                    escapePressed();
+                    return;
+                }
+                Vector pos = getPosVector(e);
+                SearchResult hit = getVisualElement(pos, false);
+                if (hit.getState() == SearchResult.State.FOUND)
+                    clickComponent(hit.getVisualElement(), pos, e);
+                else if (!toggle && hit.getState() == SearchResult.State.NONE)
+                    escapePressed();
             }
         }
 
         @Override
         void released(MouseEvent e) {
-            wasReleased = true;
-            Vector dif = corner1.sub(corner2);
-            if (Math.abs(dif.x) > MIN_SIZE && Math.abs(dif.y) > MIN_SIZE)
-                setCursor(moveCursor);
+            if (state.isDraggingBox()) {
+                state.updateBox(getCircuit(), getPosVector(e), mouse.isClickModifier(e));
+                state.finishBox(false);
+                finishSelection();
+            }
+        }
+
+        private void finishSelection() {
+            if (getSelection().isEmpty())
+                escapePressed();
             else {
-                removeHighLighted();
-                mouseNormal.activate();
+                setCursor(state.isAdditive() ? Cursor.getDefaultCursor() : moveCursor);
+                updateHighlighting();
             }
         }
 
         @Override
         void pressed(MouseEvent e) {
-            moveOnDragging = mouse.isPrimaryClick(e);
+            downButton = e;
         }
 
         @Override
         boolean dragged(MouseEvent e) {
-            if (wasReleased) {
-                if (moveOnDragging) {
-                    if (!isLocked())
-                        mouseMoveSelected.activate(corner1, corner2, getPosVector(e));
-                } else
-                    return false;
-            } else {
-                corner2 = getPosVector(e);
-                if (mouse.isClickModifier(e)) {
-                    Vector dif = corner2.sub(corner1);
-                    int dx = dif.x;
-                    int dy = dif.y;
-                    int absDx = Math.abs(dx);
-                    int absDy = Math.abs(dy);
-                    if (absDx != absDy) {
-                        if (absDx > absDy) {
-                            if (dx > absDy) dx = absDy;
-                            else dx = -absDy;
-                        } else {
-                            if (dy > absDx) dy = absDx;
-                            else dy = -absDx;
-                        }
-                    }
-                    corner2 = corner1.add(dx, dy);
-                }
+            Vector pos = getPosVector(e);
+            if (state.isDraggingBox()) {
+                state.updateBox(getCircuit(), pos, mouse.isClickModifier(e));
                 updateHighlighting();
-            }
+            } else if (downButton == null || !mouse.isPrimaryClick(downButton))
+                return false;
+            else if (mouse.isSelectionModifier(downButton))
+                beginBox(getPosVector(downButton), pos, false, true);
+            else if (!state.isAdditive() && !isLocked())
+                mouseMoveSelected.activate(getSelection(), pos, rotationCenter(), false);
             return true;
         }
 
         private void updateHighlighting() {
-            ArrayList<Drawable> elements = getCircuit().getElementsToHighlight(Vector.min(corner1, corner2), Vector.max(corner1, corner2));
+            toolTipHighlighted = false;
             removeHighLighted();
-            if (elements != null)
-                addHighLighted(elements);
-
+            addHighLighted(getSelection().getDrawables(getCircuit()));
+            boolean hasSelection = !getSelection().isEmpty();
+            deleteAction.setEnabled(hasSelection);
+            copyAction.setEnabled(hasSelection);
+            cutAction.setEnabled(hasSelection);
+            rotateAction.setEnabled(hasSelection);
             repaint();
-        }
-
-        public void release() {
-            this.wasReleased = true;
         }
 
         @Override
         public void drawTo(Graphic gr) {
-            Vector p1 = new Vector(corner1.x, corner2.y);
-            Vector p2 = new Vector(corner2.x, corner1.y);
-            gr.drawLine(corner1, p1, Style.DASH);
-            gr.drawLine(p1, corner2, Style.DASH);
-            gr.drawLine(p2, corner2, Style.DASH);
-            gr.drawLine(corner1, p2, Style.DASH);
+            state.drawTo(gr);
         }
 
         @Override
         public void delete() {
             if (!isLocked()) {
                 isManualScale = true;
-                modify(new ModifyDeleteRect(Vector.min(corner1, corner2), Vector.max(corner1, corner2)));
-                mouseNormal.activate();
+                modify(new ModifyDeleteSelection(getSelection()));
             }
         }
 
+        private Vector rotationCenter() {
+            return raster(state.center(getCircuit()));
+        }
+
+        @Override
         public void rotate() {
             if (!isLocked()) {
-                mouseMoveSelected.activate(corner1, corner2, lastMousePos);
+                Vector center = rotationCenter();
+                mouseMoveSelected.activate(getSelection(), center, center, false);
                 mouseMoveSelected.rotate();
             }
         }
 
         @Override
         public void escapePressed() {
-            removeHighLighted();
             mouseNormal.activate();
+        }
+
+        @Override
+        void deactivate() {
+            state.reset();
+            downButton = null;
+            removeHighLighted();
         }
     }
 
     private final class MouseControllerMoveSelected extends MouseController {
-        private Circuit.RectContainer elements;
+        private CircuitSelection selection;
+        private Circuit.RectContainer preview;
         private Vector lastPos;
         private Vector center;
         private Vector accumulatedDelta;
         private int accumulatedRotate;
-        private Vector min;
-        private Vector max;
+        private boolean minRaster;
+        private boolean followsMouse;
 
         private MouseControllerMoveSelected(Cursor cursor) {
             super(cursor);
         }
 
-        private void activate(Vector corner1, Vector corner2, Vector pos) {
+        private void activate(CircuitSelection selected, Vector pos, Vector rotationCenter, boolean followsMouse) {
+            selection = new CircuitSelection(selected);
             super.activate();
             rotateAction.setEnabled(true);
             lastPos = pos;
-            center = raster(corner1.add(corner2).div(2));
-
+            center = rotationCenter;
+            this.followsMouse = followsMouse;
+            Circuit circuit = getCircuit();
+            VisualElement single = selection.getSingleElement(circuit);
+            minRaster = followsMouse && single != null && needsMinRaster(single);
             accumulatedDelta = new Vector(0, 0);
             accumulatedRotate = 0;
-            min = Vector.min(corner1, corner2);
-            max = Vector.max(corner1, corner2);
-            elements = getCircuit().copyElementsInRect(min, max, library.getShapeFactory());
-            if (elements == null)
-                mouseNormal.activate();
-            else {
-                shallowCopy = getCircuit().createShallowCopy();
-                shallowCopy.delete(min, max);
-            }
-            removeHighLighted();
+            preview = selection.copyForMove(circuit, library.getShapeFactory());
+            shallowCopy = selection.background(circuit);
         }
 
         @Override
         void moved(MouseEvent e) {
-            lastPos = getPosVector(e);
+            if (followsMouse)
+                updatePreview(getPosVector(e));
+            else
+                lastPos = getPosVector(e);
         }
 
         @Override
         boolean dragged(MouseEvent e) {
-            Vector pos = getPosVector(e);
-            Vector delta = raster(pos.sub(lastPos));
+            if (!followsMouse)
+                updatePreview(getPosVector(e));
+            return true;
+        }
 
+        private void updatePreview(Vector pos) {
+            Vector movement = pos.sub(lastPos);
+            Vector delta = minRaster ? toMinRaster(movement, true) : raster(movement);
             if (delta.x != 0 || delta.y != 0) {
-                for (Movable m : elements.getMovables())
-                    m.move(delta);
+                for (Movable movable : preview.getMovables()) movable.move(delta);
                 accumulatedDelta = accumulatedDelta.add(delta);
-
-                repaint();
                 lastPos = lastPos.add(delta);
                 center = center.add(delta);
+                repaint();
             }
-            return true;
         }
 
         @Override
         void released(MouseEvent e) {
-            if (accumulatedDelta.x != 0 || accumulatedDelta.y != 0 || accumulatedRotate != 0) {
-                modify(new ModifyMoveSelected(min, max, accumulatedDelta, accumulatedRotate, center));
-                getCircuit().elementsMoved();
+            if (!followsMouse)
+                place();
+        }
+
+        @Override
+        void clicked(MouseEvent e) {
+            if (followsMouse && mouse.isPrimaryClick(e)) {
+                updatePreview(getPosVector(e));
+                place();
             }
-            mouseNormal.activate();
+        }
+
+        private void place() {
+            if (accumulatedDelta.x != 0 || accumulatedDelta.y != 0 || accumulatedRotate != 0)
+                modify(new ModifyMoveSelected(selection, accumulatedDelta, accumulatedRotate, center));
+            else
+                mouseNormal.activate();
         }
 
         @Override
@@ -2536,20 +2578,19 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
 
         @Override
         public void rotate() {
-            ModifyMoveSelected.rotateElements(elements.getMovables(), center);
-            repaint();
+            ModifyMoveSelected.rotateElements(preview.getMovables(), center);
             accumulatedRotate++;
+            repaint();
         }
 
         @Override
         public int drawables() {
-            return elements.getDrawables().size();
+            return preview.getDrawables().size();
         }
 
         @Override
         public void drawTo(Graphic gr) {
-            for (Drawable m : elements.getDrawables())
-                m.drawTo(gr, Style.HIGHLIGHT);
+            for (Drawable drawable : preview.getDrawables()) drawable.drawTo(gr, Style.HIGHLIGHT);
         }
     }
 

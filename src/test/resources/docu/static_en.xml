@@ -134,10 +134,16 @@
             <par>
                 The component needs to be selected using the rectangular selection tool in order to be moved
                 along with the connected wires. For moving a component without the connected wires,
-                select the component using a mouse click.
+                click its body, move the pointer, then click again to place it.
             </par>
             <par>
-                With CTRL-Click a single wire section can be selected to move or delete it.
+                CTRL-Click adds or removes a component while keeping it in place. Hold CTRL before dragging with the
+                left mouse button to add components and wire endpoints in a rectangle. Repeat to add more areas.
+                You can also click a component or finish drawing an ordinary selection rectangle, then press CTRL
+                to start adding to that selection. A component that was following the pointer returns to its original position.
+                Press Shift to pick up the combined selection, move the pointer, then click to place it. Esc cancels the move.
+                To constrain an ordinary selection to a square, hold CTRL while drawing it after starting the drag.
+                With macOS mouse clicks enabled, use Command to change the selection and Shift to constrain a square.
                 If the D key is pressed while drawing a wire, a diagonal wire can be drawn.
                 The key S allows the splitting of a line segment into two segments.
             </par>
@@ -552,7 +558,7 @@
         <faq>
             <question>How to move a wire?</question>
             <answer>Select one of the end points with the rectangular selection. Then move this point using the mouse.
-                You can also select a wire with CTRL + mouse button.
+                You can also pick up a wire with CTRL + left click, then move the pointer and click to place it.
             </answer>
         </faq>
         <faq>
@@ -669,6 +675,9 @@
                 if a break component is present, until the break.</shortcut>
             <shortcut key="F9">Analysis of the circuit.</shortcut>
             <shortcut key="CTRL-A">Select all.</shortcut>
+            <shortcut key="CTRL + Click">Add or remove a component without moving it.</shortcut>
+            <shortcut key="CTRL + Drag">Add components and wire endpoints in each selection rectangle.</shortcut>
+            <shortcut key="SHIFT">Pick up the selection built with CTRL + Click or CTRL + Drag.</shortcut>
             <shortcut key="CTRL-X">Cuts the selected components to the clipboard.</shortcut>
             <shortcut key="CTRL-C">Copys the selected components to the clipboard.</shortcut>
             <shortcut key="CTRL-V">Inserts the components from the clipboard.</shortcut>

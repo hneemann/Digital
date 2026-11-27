@@ -575,32 +575,8 @@ public class Circuit implements Copyable<Circuit> {
      * @return the list
      */
     public RectContainer copyElementsInRect(Vector min, Vector max, ShapeFactory shapeFactory) {
-        ArrayList<Drawable> d = new ArrayList<>();
-        ArrayList<Movable> m = new ArrayList<>();
-        for (VisualElement vp : visualElements)
-            if (vp.matches(min, max)) {
-                final VisualElement ve = new VisualElement(vp).setShapeFactory(shapeFactory);
-                m.add(ve);
-                d.add(ve);
-            }
-
-        for (Wire w : wires) {
-            final boolean p1Inside = w.p1.inside(min, max);
-            final boolean p2Inside = w.p2.inside(min, max);
-            if (p1Inside || p2Inside) {
-                final Wire ww = new Wire(w);
-                d.add(ww);
-                if (p1Inside)
-                    m.add(ww.getMovableP1());
-                if (p2Inside)
-                    m.add(ww.getMovableP2());
-            }
-        }
-
-        if (m.isEmpty() && d.isEmpty())
-            return null;
-        else
-            return new RectContainer(d, m);
+        CircuitSelection selection = CircuitSelection.rectangle(this, min, max);
+        return selection.isEmpty() ? null : selection.copyForMove(this, shapeFactory);
     }
 
 
@@ -919,7 +895,7 @@ public class Circuit implements Copyable<Circuit> {
         private final ArrayList<Drawable> d;
         private final ArrayList<Movable> m;
 
-        private RectContainer(ArrayList<Drawable> d, ArrayList<Movable> m) {
+        RectContainer(ArrayList<Drawable> d, ArrayList<Movable> m) {
             this.d = d;
             this.m = m;
         }
