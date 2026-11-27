@@ -37,6 +37,11 @@ public interface Mouse {
                 public boolean isClickModifier(MouseEvent e) {
                     return e.isShiftDown();
                 }
+
+                @Override
+                public boolean isSelectionModifier(MouseEvent e) {
+                    return e.isMetaDown();
+                }
             };
         else
             return new Mouse() {
@@ -81,5 +86,14 @@ public interface Mouse {
      * @return true if modifier is pressed
      */
     boolean isClickModifier(MouseEvent e);
+
+    /**
+     * Reports whether the modifier for changing the current selection is pressed.
+     * @param e the mouse event
+     * @return true if the selection modifier is pressed
+     */
+    default boolean isSelectionModifier(MouseEvent e) {
+        return e.isControlDown();
+    }
 
 }

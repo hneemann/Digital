@@ -6,6 +6,7 @@
 package de.neemann.digital.gui.components.modification;
 
 import de.neemann.digital.draw.elements.Circuit;
+import de.neemann.digital.draw.elements.CircuitSelection;
 import de.neemann.digital.draw.elements.Movable;
 import de.neemann.digital.draw.elements.VisualElement;
 import de.neemann.digital.draw.elements.Wire;
@@ -17,13 +18,13 @@ import de.neemann.digital.lang.Lang;
 import de.neemann.digital.undo.Modification;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 /**
  * Modifier to move a selection
  */
 public class ModifyMoveSelected implements Modification<Circuit> {
-    private final Vector min;
-    private final Vector max;
+    private final Function<Circuit, ArrayList<Movable>> findMovables;
     private final Vector accumulatedDelta;
     private final int accumulatedRotate;
     private final Vector center;
@@ -38,8 +39,23 @@ public class ModifyMoveSelected implements Modification<Circuit> {
      * @param center            the center of the selection rectangle
      */
     public ModifyMoveSelected(Vector min, Vector max, Vector accumulatedDelta, int accumulatedRotate, Vector center) {
-        this.min = min;
-        this.max = max;
+        this(circuit -> circuit.getElementsToMove(min, max), accumulatedDelta, accumulatedRotate, center);
+    }
+
+    /**
+     * Moves or rotates a selection of individual components and wire endpoints.
+     * @param selection the selected objects before the edit
+     * @param accumulatedDelta the translation
+     * @param accumulatedRotate the number of quarter turns
+     * @param center the rotation center after translation
+     */
+    public ModifyMoveSelected(CircuitSelection selection, Vector accumulatedDelta, int accumulatedRotate, Vector center) {
+        this(new CircuitSelection(selection)::getMovables, accumulatedDelta, accumulatedRotate, center);
+    }
+
+    private ModifyMoveSelected(Function<Circuit, ArrayList<Movable>> findMovables,
+                               Vector accumulatedDelta, int accumulatedRotate, Vector center) {
+        this.findMovables = findMovables;
         this.accumulatedDelta = accumulatedDelta;
         this.accumulatedRotate = accumulatedRotate;
         this.center = center;
@@ -47,8 +63,8 @@ public class ModifyMoveSelected implements Modification<Circuit> {
 
     @Override
     public void modify(Circuit circuit) {
-        ArrayList<Movable> list = circuit.getElementsToMove(min, max);
-        if (list != null) {
+        ArrayList<Movable> list = findMovables.apply(circuit);
+        if (list != null && !list.isEmpty()) {
             for (Movable m : list)
                 m.move(accumulatedDelta);
 
