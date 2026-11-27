@@ -139,8 +139,10 @@
             <par>
                 CTRL-Click adds or removes a component while keeping it in place. Hold CTRL before dragging with the
                 left mouse button to add components and wire endpoints in a rectangle. Repeat to add more areas.
+                You can also click a component or finish drawing an ordinary selection rectangle, then press CTRL
+                to start adding to that selection. A component that was following the pointer returns to its original position.
                 Press Shift to pick up the combined selection, move the pointer, then click to place it. Esc cancels the move.
-                To constrain an ordinary selection to a square, press the modifier after starting the drag.
+                To constrain an ordinary selection to a square, hold CTRL while drawing it after starting the drag.
                 With macOS mouse clicks enabled, use Command to change the selection and Shift to constrain a square.
                 If the D key is pressed while drawing a wire, a diagonal wire can be drawn.
                 The key S allows the splitting of a line segment into two segments.

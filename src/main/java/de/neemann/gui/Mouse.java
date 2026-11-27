@@ -8,6 +8,7 @@ package de.neemann.gui;
 import de.neemann.digital.core.element.Keys;
 import de.neemann.digital.gui.Settings;
 
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 
 /**
@@ -39,7 +40,7 @@ public interface Mouse {
                 }
 
                 @Override
-                public boolean isSelectionModifier(MouseEvent e) {
+                public boolean isSelectionModifier(InputEvent e) {
                     return e.isMetaDown();
                 }
             };
@@ -89,10 +90,10 @@ public interface Mouse {
 
     /**
      * Reports whether the modifier for changing the current selection is pressed.
-     * @param e the mouse event
+     * @param e the input event
      * @return true if the selection modifier is pressed
      */
-    default boolean isSelectionModifier(MouseEvent e) {
+    default boolean isSelectionModifier(InputEvent e) {
         return e.isControlDown();
     }
 

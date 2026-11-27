@@ -103,11 +103,58 @@ public class MultiSelectionInteractionTest extends TestCase {
     }
 
     private void pressShift() {
+        pressKey(KeyEvent.VK_SHIFT, InputEvent.SHIFT_DOWN_MASK);
+    }
+
+    private void pressSelectionModifier() {
+        pressKey(selectionModifier == InputEvent.META_DOWN_MASK ? KeyEvent.VK_META : KeyEvent.VK_CONTROL, selectionModifier);
+    }
+
+    private void pressKey(int keyCode, int modifier) {
         KeyboardFocusManager focusManager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
         focusManager.redispatchEvent(component, new KeyEvent(component, KeyEvent.KEY_PRESSED, 0,
-                InputEvent.SHIFT_DOWN_MASK, KeyEvent.VK_SHIFT, KeyEvent.CHAR_UNDEFINED));
+                modifier, keyCode, KeyEvent.CHAR_UNDEFINED));
         focusManager.redispatchEvent(component, new KeyEvent(component, KeyEvent.KEY_RELEASED, 1,
-                0, KeyEvent.VK_SHIFT, KeyEvent.CHAR_UNDEFINED));
+                0, keyCode, KeyEvent.CHAR_UNDEFINED));
+    }
+
+    public void testModifierAfterClickKeepsTheOriginalAndAddsAnotherComponent() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            click(120, 100, 0);
+            hover(160, 220);
+            assertNotSame(circuit, component.getCircuitOrShallowCopy());
+
+            pressSelectionModifier();
+            hover(620, 80);
+            assertComponentsStayAtOriginalPositions();
+            assertEquals(1, component.getHighLighted().size());
+            assertTrue(component.getHighLighted().contains(circuit.getElements().get(0)));
+
+            click(520, 100, selectionModifier);
+            hover(620, 80);
+            pressShift();
+            hover(660, 200);
+            click(660, 200, 0);
+            assertEquals(new Vector(140, 220), component.getCircuit().getElements().get(0).getPos());
+            assertEquals(new Vector(300, 100), component.getCircuit().getElements().get(1).getPos());
+            assertEquals(new Vector(540, 220), component.getCircuit().getElements().get(2).getPos());
+        });
+    }
+
+    public void testModifierAfterOrdinaryBoxKeepsItWhenAddingAnotherBox() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            circuit.add(new Wire(new Vector(300, 140), new Vector(700, 140)));
+            Wire wire = circuit.getWires().get(0);
+            drag(80, 60, 360, 150, 0);
+            assertEquals(3, component.getHighLighted().size());
+
+            pressSelectionModifier();
+            drag(460, 60, 560, 150, selectionModifier);
+            assertEquals(4, component.getHighLighted().size());
+            assertTrue(component.getHighLighted().containsAll(circuit.getElements()));
+            assertTrue(component.getHighLighted().contains(wire));
+            assertComponentsStayAtOriginalPositions();
+        });
     }
 
     public void testControlClickAddsAndRemovesSingleComponents() throws Exception {
@@ -255,6 +302,8 @@ public class MultiSelectionInteractionTest extends TestCase {
         SwingUtilities.invokeAndWait(() -> {
             int controlDrag = squareModifier | InputEvent.BUTTON1_DOWN_MASK;
             event(MouseEvent.MOUSE_PRESSED, 80, 60, InputEvent.BUTTON1_DOWN_MASK, MouseEvent.BUTTON1);
+            event(MouseEvent.MOUSE_DRAGGED, 280, 140, InputEvent.BUTTON1_DOWN_MASK, MouseEvent.NOBUTTON);
+            pressKey(squareModifier == InputEvent.SHIFT_DOWN_MASK ? KeyEvent.VK_SHIFT : KeyEvent.VK_CONTROL, squareModifier);
             event(MouseEvent.MOUSE_DRAGGED, 360, 140, controlDrag, MouseEvent.NOBUTTON);
             event(MouseEvent.MOUSE_RELEASED, 360, 140, squareModifier, MouseEvent.BUTTON1);
             assertEquals(1, component.getHighLighted().size());

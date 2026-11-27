@@ -53,7 +53,7 @@ final class CircuitSelectionState {
         box = new Box(start);
     }
 
-    private void enableAdding() {
+    void enableAdding() {
         if (!additive && box != null) {
             addedBoxes.add(box);
             box = null;

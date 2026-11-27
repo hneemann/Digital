@@ -282,8 +282,15 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SHIFT && activeMouseController == mouseSelect)
+                int key = e.getKeyCode();
+                if (key == KeyEvent.VK_SHIFT && activeMouseController == mouseSelect)
                     mouseSelect.pickUpSelection();
+                else if ((key == KeyEvent.VK_CONTROL || key == KeyEvent.VK_META) && mouse.isSelectionModifier(e)) {
+                    if (activeMouseController == mouseMoveElement)
+                        mouseSelect.toggleComponent(mouseMoveElement.originalVisualElement);
+                    else if (activeMouseController == mouseSelect)
+                        mouseSelect.enableAdding();
+                }
             }
         });
 
@@ -2361,6 +2368,13 @@ public class CircuitComponent extends JComponent implements ChangedListener, Lib
             super.activate();
             state.toggleComponent(getCircuit(), component);
             finishSelection();
+        }
+
+        private void enableAdding() {
+            if (!state.isAdditive() && !state.isDraggingBox()) {
+                state.enableAdding();
+                finishSelection();
+            }
         }
 
         private void pickUpSelection() {
